@@ -1,0 +1,201 @@
+{
+ "decision-v7": {
+  "questions": 1468,
+  "kev-1.0": 0.8337874659400545,
+  "kev-items": 0.8310626702997275,
+  "delta": -0.0027247956403269754,
+  "ci95": [
+   -0.011065006915629323,
+   0.006160164271047228
+  ],
+  "by_task": {
+   "agnews": {
+    "kev-1.0": 0.8620689655172413,
+    "kev-items": 0.8793103448275862,
+    "n": 116
+   },
+   "agnews_yn": {
+    "kev-1.0": 0.9402173913043478,
+    "kev-items": 0.9347826086956522,
+    "n": 184
+   },
+   "amazon": {
+    "kev-1.0": 0.575,
+    "kev-items": 0.5875,
+    "n": 80
+   },
+   "banking77": {
+    "kev-1.0": 0.8275862068965517,
+    "kev-items": 0.8189655172413793,
+    "n": 116
+   },
+   "boolq": {
+    "kev-1.0": 0.725,
+    "kev-items": 0.725,
+    "n": 80
+   },
+   "composition_atom": {
+    "kev-1.0": 1.0,
+    "kev-items": 1.0,
+    "n": 16
+   },
+   "composition_conditional": {
+    "kev-1.0": 0.5625,
+    "kev-items": 0.5625,
+    "n": 16
+   },
+   "composition_conjunction": {
+    "kev-1.0": 0.9375,
+    "kev-items": 0.9375,
+    "n": 16
+   },
+   "composition_disjunction": {
+    "kev-1.0": 0.8125,
+    "kev-items": 0.75,
+    "n": 16
+   },
+   "composition_exception": {
+    "kev-1.0": 0.9375,
+    "kev-items": 0.75,
+    "n": 16
+   },
+   "composition_negation": {
+    "kev-1.0": 0.8125,
+    "kev-items": 0.75,
+    "n": 16
+   },
+   "composition_nested_and": {
+    "kev-1.0": 0.8125,
+    "kev-items": 0.8125,
+    "n": 16
+   },
+   "composition_nested_or": {
+    "kev-1.0": 1.0,
+    "kev-items": 1.0,
+    "n": 16
+   },
+   "contrastive_age_eligibility": {
+    "kev-1.0": 1.0,
+    "kev-items": 1.0,
+    "n": 24
+   },
+   "contrastive_quantity_limit": {
+    "kev-1.0": 0.9583333333333334,
+    "kev-items": 1.0,
+    "n": 24
+   },
+   "contrastive_return_window": {
+    "kev-1.0": 0.7916666666666666,
+    "kev-items": 0.75,
+    "n": 24
+   },
+   "contrastive_spend_threshold": {
+    "kev-1.0": 1.0,
+    "kev-items": 1.0,
+    "n": 24
+   },
+   "dbpedia14": {
+    "kev-1.0": 0.9482758620689655,
+    "kev-items": 0.9568965517241379,
+    "n": 116
+   },
+   "imdb": {
+    "kev-1.0": 0.8875,
+    "kev-items": 0.9,
+    "n": 80
+   },
+   "mnli": {
+    "kev-1.0": 0.7844827586206896,
+    "kev-items": 0.7844827586206896,
+    "n": 116
+   },
+   "sst5": {
+    "kev-1.0": 0.575,
+    "kev-items": 0.5375,
+    "n": 80
+   },
+   "trec": {
+    "kev-1.0": 0.9568965517241379,
+    "kev-items": 0.9655172413793104,
+    "n": 116
+   },
+   "yelp": {
+    "kev-1.0": 0.6375,
+    "kev-items": 0.625,
+    "n": 80
+   },
+   "yelp_yn": {
+    "kev-1.0": 0.8875,
+    "kev-items": 0.9,
+    "n": 80
+   }
+  }
+ },
+ "transfer-v4": {
+  "questions": 764,
+  "kev-1.0": 0.6531413612565445,
+  "kev-items": 0.6321989528795812,
+  "delta": -0.020942408376963352,
+  "ci95": [
+   -0.04057591623036649,
+   -0.0013089005235602095
+  ],
+  "by_task": {
+   "composition_held_and_or": {
+    "kev-1.0": 0.65625,
+    "kev-items": 0.65625,
+    "n": 32
+   },
+   "composition_held_conditional": {
+    "kev-1.0": 0.65625,
+    "kev-items": 0.65625,
+    "n": 32
+   },
+   "composition_held_or_not": {
+    "kev-1.0": 0.5625,
+    "kev-items": 0.5625,
+    "n": 32
+   },
+   "contrastive_authorization": {
+    "kev-1.0": 0.95,
+    "kev-items": 0.825,
+    "n": 40
+   },
+   "contrastive_deadline": {
+    "kev-1.0": 0.35,
+    "kev-items": 0.375,
+    "n": 40
+   },
+   "emotion": {
+    "kev-1.0": 0.5344827586206896,
+    "kev-items": 0.49137931034482757,
+    "n": 116
+   },
+   "mmlu": {
+    "kev-1.0": 0.4827586206896552,
+    "kev-items": 0.4396551724137931,
+    "n": 116
+   },
+   "paws": {
+    "kev-1.0": 0.6,
+    "kev-items": 0.55,
+    "n": 80
+   },
+   "qnli": {
+    "kev-1.0": 0.8125,
+    "kev-items": 0.775,
+    "n": 80
+   },
+   "sciq": {
+    "kev-1.0": 0.8793103448275862,
+    "kev-items": 0.9224137931034483,
+    "n": 116
+   },
+   "tweet_offensive": {
+    "kev-1.0": 0.675,
+    "kev-items": 0.675,
+    "n": 80
+   }
+  }
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "init_from": "/workspace/models/fresh-32k",
+ "max_state": 65536,
+ "lr": 5e-05,
+ "accum": 4,
+ "seed": 0,
+ "metrics": {
+  "wall_seconds": 2539.6540076732635,
+  "records_seen": 797,
+  "optimizer_steps": 200,
+  "forward_tokens": 17946072,
+  "peak_device_bytes": 69299636736
+ },
+ "hardware": "1x H100 NVL (RunPod secure cloud)",
+ "teacher": "phase 1b's teacher rows (Kev-0.8B 1.0 alone on fresh complaints + decision records); no labels"
+}

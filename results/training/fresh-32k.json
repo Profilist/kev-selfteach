@@ -1,0 +1,95 @@
+{
+ "teacher": "jaredpalmer/kev-0.8b (Kev-0.8B 1.0) reading each item alone, raw logits (KEV_TEMPERATURE=1.0)",
+ "teacher_accuracy_per_item": {
+  "fresh complaint product": {
+   "acc": 0.8079,
+   "items": 5133
+  },
+  "fresh complaint, product has no option (not scored)": {
+   "items": 86
+  },
+  "decision record (phase 1's)": {
+   "acc": 0.9187,
+   "items": 4332
+  }
+ },
+ "teacher_accuracy_by_product_fresh": {
+  "credit_reporting": {
+   "acc": 0.8153,
+   "items": 2544
+  },
+  "debt_collection": {
+   "acc": 0.6646,
+   "items": 635
+  },
+  "card": {
+   "acc": 0.851,
+   "items": 624
+  },
+  "bank_account": {
+   "acc": 0.8019,
+   "items": 414
+  },
+  "mortgage": {
+   "acc": 0.9213,
+   "items": 381
+  },
+  "student_loan": {
+   "acc": 0.9,
+   "items": 250
+  },
+  "money_transfer": {
+   "acc": 0.75,
+   "items": 152
+  },
+  "vehicle_loan": {
+   "acc": 0.7619,
+   "items": 84
+  },
+  "personal_loan": {
+   "acc": 0.6939,
+   "items": 49
+  }
+ },
+ "teacher_accuracy_on_training_questions": {
+  "fresh complaints": 0.815,
+  "decision records": 0.919,
+  "note": "per training question (items repeat across packed documents), from selfteach_targets.py"
+ },
+ "teacher_accuracy_alone_on_test_complaints": 0.803,
+ "items": "5,219 fresh CFPB complaints (shard 10, not in Kev's documents-v1 train or the all-complaints test pool, no product filter) + phase 1's 3,432 decision-v2 train records",
+ "training_records": 2391,
+ "training_questions": 26899,
+ "training_args": {
+  "lr": 5e-05,
+  "accum": 4,
+  "batch": 1,
+  "epochs": 1,
+  "seed": 0,
+  "max_state": 32768,
+  "shared_prefix": 1,
+  "init_from": "jaredpalmer/kev-0.8b",
+  "checkpointing": 1,
+  "dtype": "bf16",
+  "weights_dtype": "fp32"
+ },
+ "hardware": "1x H100 NVL (RunPod community cloud), 46 min wall",
+ "training_metrics": {
+  "wall_seconds": 2713.2067856788635,
+  "records_seen": 2391,
+  "requested_records": 2391,
+  "truncated_records": 0,
+  "rejected_records": 0,
+  "optimizer_steps": 598,
+  "forward_tokens": 17885237,
+  "optimizer_seconds": 2.214514970779419,
+  "world_size": 1,
+  "backbone_save_seconds": 0.2,
+  "weights": "lora",
+  "peak_device_bytes": 30959856640,
+  "device": "cuda",
+  "dtype": "bf16",
+  "batch": 1,
+  "peak_rss_bytes": 5548138496
+ }
+}

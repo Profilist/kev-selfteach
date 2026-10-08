@@ -1,0 +1,440 @@
+{
+ "decision-v7": {
+  "questions": 1468,
+  "kev-1.0": 0.8337874659400545,
+  "delta-v1": 0.829700272479564,
+  "delta": -0.004087193460490463,
+  "ci95": [
+   -0.015394912985274432,
+   0.006224066390041493
+  ],
+  "by_task": {
+   "agnews": {
+    "kev-1.0": 0.8620689655172413,
+    "delta-v1": 0.8793103448275862,
+    "n": 116
+   },
+   "agnews_yn": {
+    "kev-1.0": 0.9402173913043478,
+    "delta-v1": 0.9239130434782609,
+    "n": 184
+   },
+   "amazon": {
+    "kev-1.0": 0.575,
+    "delta-v1": 0.6125,
+    "n": 80
+   },
+   "banking77": {
+    "kev-1.0": 0.8275862068965517,
+    "delta-v1": 0.8017241379310345,
+    "n": 116
+   },
+   "boolq": {
+    "kev-1.0": 0.725,
+    "delta-v1": 0.7625,
+    "n": 80
+   },
+   "composition_atom": {
+    "kev-1.0": 1.0,
+    "delta-v1": 1.0,
+    "n": 16
+   },
+   "composition_conditional": {
+    "kev-1.0": 0.5625,
+    "delta-v1": 0.5625,
+    "n": 16
+   },
+   "composition_conjunction": {
+    "kev-1.0": 0.9375,
+    "delta-v1": 0.9375,
+    "n": 16
+   },
+   "composition_disjunction": {
+    "kev-1.0": 0.8125,
+    "delta-v1": 0.8125,
+    "n": 16
+   },
+   "composition_exception": {
+    "kev-1.0": 0.9375,
+    "delta-v1": 0.9375,
+    "n": 16
+   },
+   "composition_negation": {
+    "kev-1.0": 0.8125,
+    "delta-v1": 0.8125,
+    "n": 16
+   },
+   "composition_nested_and": {
+    "kev-1.0": 0.8125,
+    "delta-v1": 0.8125,
+    "n": 16
+   },
+   "composition_nested_or": {
+    "kev-1.0": 1.0,
+    "delta-v1": 1.0,
+    "n": 16
+   },
+   "contrastive_age_eligibility": {
+    "kev-1.0": 1.0,
+    "delta-v1": 1.0,
+    "n": 24
+   },
+   "contrastive_quantity_limit": {
+    "kev-1.0": 0.9583333333333334,
+    "delta-v1": 0.9583333333333334,
+    "n": 24
+   },
+   "contrastive_return_window": {
+    "kev-1.0": 0.7916666666666666,
+    "delta-v1": 0.625,
+    "n": 24
+   },
+   "contrastive_spend_threshold": {
+    "kev-1.0": 1.0,
+    "delta-v1": 1.0,
+    "n": 24
+   },
+   "dbpedia14": {
+    "kev-1.0": 0.9482758620689655,
+    "delta-v1": 0.9482758620689655,
+    "n": 116
+   },
+   "imdb": {
+    "kev-1.0": 0.8875,
+    "delta-v1": 0.8625,
+    "n": 80
+   },
+   "mnli": {
+    "kev-1.0": 0.7844827586206896,
+    "delta-v1": 0.7931034482758621,
+    "n": 116
+   },
+   "sst5": {
+    "kev-1.0": 0.575,
+    "delta-v1": 0.4875,
+    "n": 80
+   },
+   "trec": {
+    "kev-1.0": 0.9568965517241379,
+    "delta-v1": 0.9655172413793104,
+    "n": 116
+   },
+   "yelp": {
+    "kev-1.0": 0.6375,
+    "delta-v1": 0.6625,
+    "n": 80
+   },
+   "yelp_yn": {
+    "kev-1.0": 0.8875,
+    "delta-v1": 0.9,
+    "n": 80
+   }
+  }
+ },
+ "transfer-v4": {
+  "questions": 764,
+  "kev-1.0": 0.6531413612565445,
+  "delta-v1": 0.6465968586387435,
+  "delta": -0.006544502617801047,
+  "ci95": [
+   -0.024869109947643978,
+   0.011780104712041885
+  ],
+  "by_task": {
+   "composition_held_and_or": {
+    "kev-1.0": 0.65625,
+    "delta-v1": 0.65625,
+    "n": 32
+   },
+   "composition_held_conditional": {
+    "kev-1.0": 0.65625,
+    "delta-v1": 0.65625,
+    "n": 32
+   },
+   "composition_held_or_not": {
+    "kev-1.0": 0.5625,
+    "delta-v1": 0.5625,
+    "n": 32
+   },
+   "contrastive_authorization": {
+    "kev-1.0": 0.95,
+    "delta-v1": 0.95,
+    "n": 40
+   },
+   "contrastive_deadline": {
+    "kev-1.0": 0.35,
+    "delta-v1": 0.35,
+    "n": 40
+   },
+   "emotion": {
+    "kev-1.0": 0.5344827586206896,
+    "delta-v1": 0.49137931034482757,
+    "n": 116
+   },
+   "mmlu": {
+    "kev-1.0": 0.4827586206896552,
+    "delta-v1": 0.47413793103448276,
+    "n": 116
+   },
+   "paws": {
+    "kev-1.0": 0.6,
+    "delta-v1": 0.6375,
+    "n": 80
+   },
+   "qnli": {
+    "kev-1.0": 0.8125,
+    "delta-v1": 0.7625,
+    "n": 80
+   },
+   "sciq": {
+    "kev-1.0": 0.8793103448275862,
+    "delta-v1": 0.9137931034482759,
+    "n": 116
+   },
+   "tweet_offensive": {
+    "kev-1.0": 0.675,
+    "delta-v1": 0.65,
+    "n": 80
+   }
+  }
+ },
+ "transfer-v9": {
+  "questions": 1264,
+  "kev-1.0": 0.5783227848101266,
+  "delta-v1": 0.5775316455696202,
+  "delta": -0.0007911392405063291,
+  "ci95": [
+   -0.01740506329113924,
+   0.015031645569620253
+  ],
+  "by_task": {
+   "buried_emotion": {
+    "kev-1.0": 0.35,
+    "delta-v1": 0.45,
+    "n": 20
+   },
+   "buried_paws": {
+    "kev-1.0": 0.45,
+    "delta-v1": 0.6,
+    "n": 20
+   },
+   "buried_qnli": {
+    "kev-1.0": 0.85,
+    "delta-v1": 0.75,
+    "n": 20
+   },
+   "buried_tweet_offensive": {
+    "kev-1.0": 0.6,
+    "delta-v1": 0.65,
+    "n": 20
+   },
+   "composition_held_and_or": {
+    "kev-1.0": 0.65625,
+    "delta-v1": 0.65625,
+    "n": 32
+   },
+   "composition_held_conditional": {
+    "kev-1.0": 0.65625,
+    "delta-v1": 0.65625,
+    "n": 32
+   },
+   "composition_held_or_not": {
+    "kev-1.0": 0.5625,
+    "delta-v1": 0.5625,
+    "n": 32
+   },
+   "contrastive_authorization": {
+    "kev-1.0": 0.95,
+    "delta-v1": 0.95,
+    "n": 40
+   },
+   "contrastive_deadline": {
+    "kev-1.0": 0.35,
+    "delta-v1": 0.35,
+    "n": 40
+   },
+   "emotion": {
+    "kev-1.0": 0.5344827586206896,
+    "delta-v1": 0.49137931034482757,
+    "n": 116
+   },
+   "mmlu": {
+    "kev-1.0": 0.4827586206896552,
+    "delta-v1": 0.47413793103448276,
+    "n": 116
+   },
+   "mmlu_pro": {
+    "kev-1.0": 0.23,
+    "delta-v1": 0.23,
+    "n": 200
+   },
+   "paws": {
+    "kev-1.0": 0.6,
+    "delta-v1": 0.6375,
+    "n": 80
+   },
+   "qnli": {
+    "kev-1.0": 0.8125,
+    "delta-v1": 0.7625,
+    "n": 80
+   },
+   "sciq": {
+    "kev-1.0": 0.8793103448275862,
+    "delta-v1": 0.9137931034482759,
+    "n": 116
+   },
+   "tweet_offensive": {
+    "kev-1.0": 0.675,
+    "delta-v1": 0.65,
+    "n": 80
+   },
+   "unknowable_age_eligibility": {
+    "kev-1.0": 0.5,
+    "delta-v1": 0.5,
+    "n": 10
+   },
+   "unknowable_authorization": {
+    "kev-1.0": 0.5,
+    "delta-v1": 0.5,
+    "n": 10
+   },
+   "unknowable_control_age_eligibility": {
+    "kev-1.0": 1.0,
+    "delta-v1": 1.0,
+    "n": 10
+   },
+   "unknowable_control_authorization": {
+    "kev-1.0": 0.9,
+    "delta-v1": 0.9,
+    "n": 10
+   },
+   "unknowable_control_deadline": {
+    "kev-1.0": 0.4,
+    "delta-v1": 0.4,
+    "n": 10
+   },
+   "unknowable_control_late_fee": {
+    "kev-1.0": 1.0,
+    "delta-v1": 1.0,
+    "n": 10
+   },
+   "unknowable_control_quantity_limit": {
+    "kev-1.0": 1.0,
+    "delta-v1": 1.0,
+    "n": 10
+   },
+   "unknowable_control_return_window": {
+    "kev-1.0": 0.9,
+    "delta-v1": 0.8,
+    "n": 10
+   },
+   "unknowable_control_shipping_delay": {
+    "kev-1.0": 0.7,
+    "delta-v1": 0.5,
+    "n": 10
+   },
+   "unknowable_control_sla_response": {
+    "kev-1.0": 1.0,
+    "delta-v1": 1.0,
+    "n": 10
+   },
+   "unknowable_control_spend_threshold": {
+    "kev-1.0": 1.0,
+    "delta-v1": 1.0,
+    "n": 10
+   },
+   "unknowable_control_volume_discount": {
+    "kev-1.0": 1.0,
+    "delta-v1": 1.0,
+    "n": 10
+   },
+   "unknowable_control_warranty_claim": {
+    "kev-1.0": 0.8,
+    "delta-v1": 0.8,
+    "n": 10
+   },
+   "unknowable_deadline": {
+    "kev-1.0": 0.4,
+    "delta-v1": 0.5,
+    "n": 10
+   },
+   "unknowable_late_fee": {
+    "kev-1.0": 0.2,
+    "delta-v1": 0.3,
+    "n": 10
+   },
+   "unknowable_quantity_limit": {
+    "kev-1.0": 0.5,
+    "delta-v1": 0.5,
+    "n": 10
+   },
+   "unknowable_return_window": {
+    "kev-1.0": 0.6,
+    "delta-v1": 0.5,
+    "n": 10
+   },
+   "unknowable_shipping_delay": {
+    "kev-1.0": 0.3,
+    "delta-v1": 0.2,
+    "n": 10
+   },
+   "unknowable_sla_response": {
+    "kev-1.0": 0.3,
+    "delta-v1": 0.4,
+    "n": 10
+   },
+   "unknowable_spend_threshold": {
+    "kev-1.0": 0.5,
+    "delta-v1": 0.5,
+    "n": 10
+   },
+   "unknowable_volume_discount": {
+    "kev-1.0": 0.2,
+    "delta-v1": 0.3,
+    "n": 10
+   },
+   "unknowable_warranty_claim": {
+    "kev-1.0": 0.4,
+    "delta-v1": 0.5,
+    "n": 10
+   }
+  }
+ },
+ "babilong-mini": {
+  "questions": 200,
+  "kev-1.0": 0.43,
+  "delta-v1": 0.495,
+  "delta": 0.065,
+  "ci95": [
+   0.0,
+   0.13
+  ],
+  "by_task": {
+   "babilong_qa1": {
+    "kev-1.0": 0.425,
+    "delta-v1": 0.675,
+    "n": 40
+   },
+   "babilong_qa2": {
+    "kev-1.0": 0.475,
+    "delta-v1": 0.475,
+    "n": 40
+   },
+   "babilong_qa3": {
+    "kev-1.0": 0.125,
+    "delta-v1": 0.125,
+    "n": 40
+   },
+   "babilong_qa4": {
+    "kev-1.0": 0.275,
+    "delta-v1": 0.325,
+    "n": 40
+   },
+   "babilong_qa5": {
+    "kev-1.0": 0.85,
+    "delta-v1": 0.875,
+    "n": 40
+   }
+  }
+ }
+}

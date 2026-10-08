@@ -1,0 +1,47 @@
+{
+ "teacher": "jaredpalmer/kev-0.8b (Kev-0.8B 1.0) reading each item alone, raw logits (KEV_TEMPERATURE=1.0)",
+ "items": "5,219 fresh CFPB complaints (ml/selfteach_fresh.py --seed 1; 313 shared with seed 0) + phase 1's 3,432 decision records",
+ "teacher_accuracy_per_item": {
+  "fresh complaint product": {
+   "acc": 0.7989,
+   "items": 5131
+  },
+  "decision record (phase 1's)": {
+   "acc": 0.9187,
+   "items": 4332
+  }
+ },
+ "training_records": 2395,
+ "training_args": {
+  "lr": 5e-05,
+  "accum": 4,
+  "batch": 1,
+  "epochs": 1,
+  "seed": 1,
+  "max_state": 32768,
+  "shared_prefix": 1,
+  "init_from": "jaredpalmer/kev-0.8b",
+  "checkpointing": 1,
+  "dtype": "bf16",
+  "weights_dtype": "fp32"
+ },
+ "hardware": "1x H100 NVL (RunPod community cloud), 40 min wall",
+ "training_metrics": {
+  "wall_seconds": 2367.1438245773315,
+  "records_seen": 2395,
+  "requested_records": 2395,
+  "truncated_records": 0,
+  "rejected_records": 0,
+  "optimizer_steps": 599,
+  "forward_tokens": 17559523,
+  "optimizer_seconds": 2.0594124794006348,
+  "world_size": 1,
+  "backbone_save_seconds": 0.2,
+  "weights": "lora",
+  "peak_device_bytes": 30756429312,
+  "device": "cuda",
+  "dtype": "bf16",
+  "batch": 1,
+  "peak_rss_bytes": 5693038592
+ }
+}

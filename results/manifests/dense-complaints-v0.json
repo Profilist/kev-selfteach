@@ -1,0 +1,44 @@
+{
+ "version": "dense-complaints-v0",
+ "partitions": [
+  "development"
+ ],
+ "locked": [],
+ "files": {
+  "development.jsonl": {
+   "sha256": "ce5a039f6888595f95e57af0ab9888785d8c0efc4a1359c9110c5554f6a3e149",
+   "records": 2101,
+   "questions": 9817
+  }
+ },
+ "eval_only": true,
+ "report_only": true,
+ "trainable_sources": [],
+ "eval_only_sources": [
+  "dense_cfpb"
+ ],
+ "holdout_sources": [],
+ "context": {
+  "max_state": 65536,
+  "max_branch": 73728,
+  "max_packed": 139264,
+  "truncate": false
+ },
+ "source": "davidheineman/consumer-finance-complaints-large@44cfa170a402e254407470275ce05d7dcaccde30 (shard 10)",
+ "seed": 0,
+ "tokenizer": [
+  "Qwen/Qwen3.5-0.8B-Base",
+  "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"
+ ],
+ "buckets": {
+  "8k": 8192,
+  "16k": 16384,
+  "32k": 32768,
+  "64k": 65536
+ },
+ "fill": [
+  0.8,
+  0.93
+ ],
+ "per_product": 220
+}

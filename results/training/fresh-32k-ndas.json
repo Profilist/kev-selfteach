@@ -1,0 +1,68 @@
+{
+ "teacher": "jaredpalmer/kev-0.8b (Kev-0.8B 1.0) reading each item alone, raw logits (KEV_TEMPERATURE=1.0)",
+ "contract_items": "421 ContractNLI train NDAs (CUAD screen: largest 8-gram containment 0.138), longdoc-v1 review-file layout",
+ "teacher_on_ndas_per_item": {
+  "contractnli statement": {
+   "rate": 0.4909,
+   "questions": 1263
+  },
+  "cuad presence (no label; share answered yes)": {
+   "rate": 0.1627,
+   "questions": 842
+  }
+ },
+ "teacher_contractnli_by_label": {
+  "entailment": {
+   "acc": 0.2643,
+   "questions": 628
+  },
+  "not_mentioned": {
+   "acc": 0.9281,
+   "questions": 487
+  },
+  "contradiction": {
+   "acc": 0.0135,
+   "questions": 148
+  }
+ },
+ "teacher_on_training_questions": {
+  "fresh complaints": 0.811,
+  "contractnli statements": 0.4886,
+  "decision records": 0.918,
+  "note": "per training question (items repeat). The pod's report said 'contract 62.8%': that counted the unlabelled CUAD presence questions against their placeholder label"
+ },
+ "training_records": 2387,
+ "training_questions": 34262,
+ "training_args": {
+  "lr": 5e-05,
+  "accum": 4,
+  "batch": 1,
+  "epochs": 1,
+  "seed": 0,
+  "max_state": 32768,
+  "shared_prefix": 1,
+  "init_from": "jaredpalmer/kev-0.8b",
+  "checkpointing": 1,
+  "dtype": "bf16",
+  "weights_dtype": "fp32"
+ },
+ "hardware": "1x H100 NVL (RunPod community cloud), 50 min wall",
+ "training_metrics": {
+  "wall_seconds": 2972.824118375778,
+  "records_seen": 2387,
+  "requested_records": 2387,
+  "truncated_records": 0,
+  "rejected_records": 0,
+  "optimizer_steps": 597,
+  "forward_tokens": 20474353,
+  "optimizer_seconds": 2.2373640537261963,
+  "world_size": 1,
+  "backbone_save_seconds": 0.3,
+  "weights": "lora",
+  "peak_device_bytes": 55179609600,
+  "device": "cuda",
+  "dtype": "bf16",
+  "batch": 1,
+  "peak_rss_bytes": 5688537088
+ }
+}

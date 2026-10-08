@@ -1,0 +1,55 @@
+{
+ "version": "dense-contracts-v0",
+ "partitions": [
+  "development"
+ ],
+ "locked": [],
+ "eval_only": true,
+ "report_only": true,
+ "trainable_sources": [],
+ "eval_only_sources": [
+  "dense_cuad"
+ ],
+ "holdout_sources": [],
+ "context": {
+  "max_state": 65536,
+  "max_branch": 73728,
+  "max_packed": 139264,
+  "truncate": false
+ },
+ "cuad": {
+  "repo": "theatticusproject/cuad",
+  "revision": "a3c393f5d103fd0c516374e4fdff676c8176dcb1",
+  "files": {
+   "json": "CUAD_v1/CUAD_v1.json",
+   "clauses": "CUAD_v1/master_clauses.csv",
+   "readme": "CUAD_v1/CUAD v1 ReadMe _ Datasheet/CUAD_v1_README.txt"
+  },
+  "licence": "CC-BY-4.0",
+  "licence_evidence": [
+   "https://www.atticusprojectai.org/cuad (dataset page: 'CC BY 4.0')",
+   "CUAD_v1_README.txt: 'CUAD is licensed under the Creative Commons Attribution 4.0 (CC BY 4.0) license and free to the public for commercial and non-commercial use.'",
+   "Hub card theatticusproject/cuad: license cc-by-4.0"
+  ],
+  "attribution": "Hendrycks, Burns, Chen and Ball, CUAD: An Expert-Annotated NLP Dataset for Legal Contract Review (NeurIPS 2021 Datasets and Benchmarks); The Atticus Project, Inc.",
+  "changes": "contract text whitespace normalised (trailing spaces, runs of blank lines and of spaces collapsed); contracts concatenated into review files; questions written from CUAD's category descriptions"
+ },
+ "builder": "Kev scripts/build_longdoc_v1.py @ a0255ce (load_cuad, deal, cuad_questions, cuad_request, cuad_state)",
+ "tokenizer": [
+  "Qwen/Qwen3.8-27B",
+  "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0"
+ ],
+ "window": [
+  0.8,
+  0.93
+ ],
+ "max_tokens": 7500,
+ "seed": 0,
+ "files": {
+  "development.jsonl": {
+   "sha256": "8f3e81e49dd5c19f9c569127b25c745fac82b203caef43aa8bc786f40c68c617",
+   "records": 207,
+   "questions": 1773
+  }
+ }
+}

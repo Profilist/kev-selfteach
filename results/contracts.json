@@ -1,0 +1,692 @@
+{
+ "Kev-0.8B 1.0": {
+  "alone": {
+   "questions": 457,
+   "acc": 0.7089715536105032,
+   "by_kind": {
+    "category": 0.463,
+    "governing_law": 1.0,
+    "presence_found": 0.645,
+    "presence_not_found": 0.793
+   }
+  },
+  "16k": {
+   "questions": 457,
+   "acc": 0.6827133479212254,
+   "by_kind": {
+    "category": 0.496,
+    "governing_law": 1.0,
+    "presence_found": 0.603,
+    "presence_not_found": 0.702
+   },
+   "paired_vs_alone": {
+    "pairs": 457,
+    "delta": -0.0262582056892779,
+    "ci95": [
+     -0.059602649006622516,
+     0.004629629629629629
+    ],
+    "files": 37
+   }
+  },
+  "32k": {
+   "questions": 438,
+   "acc": 0.639269406392694,
+   "by_kind": {
+    "category": 0.422,
+    "governing_law": 0.967,
+    "presence_found": 0.517,
+    "presence_not_found": 0.724
+   },
+   "paired_vs_alone": {
+    "pairs": 438,
+    "delta": -0.07077625570776255,
+    "ci95": [
+     -0.10638297872340426,
+     -0.03695150115473441
+    ],
+    "files": 17
+   }
+  },
+  "64k": {
+   "questions": 421,
+   "acc": 0.6199524940617577,
+   "by_kind": {
+    "category": 0.378,
+    "governing_law": 0.932,
+    "presence_found": 0.586,
+    "presence_not_found": 0.649
+   },
+   "paired_vs_alone": {
+    "pairs": 421,
+    "delta": -0.1021377672209026,
+    "ci95": [
+     -0.14047619047619048,
+     -0.06428571428571428
+    ],
+    "files": 8
+   }
+  }
+ },
+ "Kev-0.8B 1.0 + complaint-document delta (ours)": {
+  "alone": {
+   "questions": 457,
+   "acc": 0.7045951859956237,
+   "by_kind": {
+    "category": 0.545,
+    "governing_law": 1.0,
+    "presence_found": 0.455,
+    "presence_not_found": 0.884
+   }
+  },
+  "16k": {
+   "questions": 457,
+   "acc": 0.7111597374179431,
+   "by_kind": {
+    "category": 0.628,
+    "governing_law": 1.0,
+    "presence_found": 0.372,
+    "presence_not_found": 0.909
+   },
+   "paired_vs_alone": {
+    "pairs": 457,
+    "delta": 0.006564551422319475,
+    "ci95": [
+     -0.024390243902439025,
+     0.037037037037037035
+    ],
+    "files": 37
+   }
+  },
+  "32k": {
+   "questions": 438,
+   "acc": 0.6757990867579908,
+   "by_kind": {
+    "category": 0.569,
+    "governing_law": 1.0,
+    "presence_found": 0.293,
+    "presence_not_found": 0.914
+   },
+   "paired_vs_alone": {
+    "pairs": 438,
+    "delta": -0.0273972602739726,
+    "ci95": [
+     -0.05411764705882353,
+     0.0
+    ],
+    "files": 17
+   }
+  },
+  "64k": {
+   "questions": 421,
+   "acc": 0.6959619952494062,
+   "by_kind": {
+    "category": 0.622,
+    "governing_law": 0.989,
+    "presence_found": 0.306,
+    "presence_not_found": 0.928
+   },
+   "paired_vs_alone": {
+    "pairs": 421,
+    "delta": -0.0166270783847981,
+    "ci95": [
+     -0.037825059101654845,
+     0.011547344110854504
+    ],
+    "files": 8
+   }
+  }
+ },
+ "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)": {
+  "alone": {
+   "questions": 457,
+   "acc": 0.7242888402625821,
+   "by_kind": {
+    "category": 0.537,
+    "governing_law": 1.0,
+    "presence_found": 0.636,
+    "presence_not_found": 0.785
+   }
+  },
+  "16k": {
+   "questions": 457,
+   "acc": 0.7242888402625821,
+   "by_kind": {
+    "category": 0.579,
+    "governing_law": 1.0,
+    "presence_found": 0.579,
+    "presence_not_found": 0.802
+   },
+   "paired_vs_alone": {
+    "pairs": 457,
+    "delta": 0.0,
+    "ci95": [
+     -0.032467532467532464,
+     0.03233256351039261
+    ],
+    "files": 37
+   }
+  },
+  "32k": {
+   "questions": 438,
+   "acc": 0.7123287671232876,
+   "by_kind": {
+    "category": 0.543,
+    "governing_law": 1.0,
+    "presence_found": 0.5,
+    "presence_not_found": 0.871
+   },
+   "paired_vs_alone": {
+    "pairs": 438,
+    "delta": -0.0136986301369863,
+    "ci95": [
+     -0.046357615894039736,
+     0.016826923076923076
+    ],
+    "files": 17
+   }
+  },
+  "64k": {
+   "questions": 421,
+   "acc": 0.6864608076009501,
+   "by_kind": {
+    "category": 0.55,
+    "governing_law": 0.989,
+    "presence_found": 0.477,
+    "presence_not_found": 0.793
+   },
+   "paired_vs_alone": {
+    "pairs": 421,
+    "delta": -0.05463182897862233,
+    "ci95": [
+     -0.07524271844660194,
+     -0.02926829268292683
+    ],
+    "files": 8
+   }
+  }
+ },
+ "Kev-0.8B 1.0 self-taught, kev-items (ours)": {
+  "alone": {
+   "questions": 457,
+   "acc": 0.7330415754923414,
+   "by_kind": {
+    "category": 0.545,
+    "governing_law": 1.0,
+    "presence_found": 0.702,
+    "presence_not_found": 0.744
+   }
+  },
+  "16k": {
+   "questions": 457,
+   "acc": 0.7417943107221007,
+   "by_kind": {
+    "category": 0.603,
+    "governing_law": 0.989,
+    "presence_found": 0.678,
+    "presence_not_found": 0.752
+   },
+   "paired_vs_alone": {
+    "pairs": 457,
+    "delta": 0.0087527352297593,
+    "ci95": [
+     -0.020454545454545454,
+     0.0367170626349892
+    ],
+    "files": 37
+   }
+  },
+  "32k": {
+   "questions": 438,
+   "acc": 0.7351598173515982,
+   "by_kind": {
+    "category": 0.595,
+    "governing_law": 1.0,
+    "presence_found": 0.664,
+    "presence_not_found": 0.741
+   },
+   "paired_vs_alone": {
+    "pairs": 438,
+    "delta": 0.0,
+    "ci95": [
+     -0.03225806451612903,
+     0.03546099290780142
+    ],
+    "files": 17
+   }
+  },
+  "64k": {
+   "questions": 421,
+   "acc": 0.7125890736342043,
+   "by_kind": {
+    "category": 0.604,
+    "governing_law": 0.989,
+    "presence_found": 0.667,
+    "presence_not_found": 0.649
+   },
+   "paired_vs_alone": {
+    "pairs": 421,
+    "delta": -0.035629453681710214,
+    "ci95": [
+     -0.08411214953271028,
+     0.0
+    ],
+    "files": 8
+   }
+  }
+ },
+ "Kev-0.8B 1.0 self-taught, fresh-32k (ours)": {
+  "alone": {
+   "questions": 457,
+   "acc": 0.7177242888402626,
+   "by_kind": {
+    "category": 0.545,
+    "governing_law": 1.0,
+    "presence_found": 0.587,
+    "presence_not_found": 0.802
+   }
+  },
+  "16k": {
+   "questions": 457,
+   "acc": 0.7417943107221007,
+   "by_kind": {
+    "category": 0.612,
+    "governing_law": 1.0,
+    "presence_found": 0.554,
+    "presence_not_found": 0.86
+   },
+   "paired_vs_alone": {
+    "pairs": 457,
+    "delta": 0.024070021881838075,
+    "ci95": [
+     -0.006726457399103139,
+     0.054466230936819175
+    ],
+    "files": 37
+   }
+  },
+  "32k": {
+   "questions": 438,
+   "acc": 0.7009132420091324,
+   "by_kind": {
+    "category": 0.569,
+    "governing_law": 0.989,
+    "presence_found": 0.474,
+    "presence_not_found": 0.836
+   },
+   "paired_vs_alone": {
+    "pairs": 438,
+    "delta": -0.01598173515981735,
+    "ci95": [
+     -0.04470588235294118,
+     0.00936768149882904
+    ],
+    "files": 17
+   }
+  },
+  "64k": {
+   "questions": 421,
+   "acc": 0.6769596199524941,
+   "by_kind": {
+    "category": 0.541,
+    "governing_law": 0.989,
+    "presence_found": 0.432,
+    "presence_not_found": 0.811
+   },
+   "paired_vs_alone": {
+    "pairs": 421,
+    "delta": -0.052256532066508314,
+    "ci95": [
+     -0.08418367346938775,
+     -0.016355140186915886
+    ],
+    "files": 8
+   }
+  }
+ },
+ "Kev-0.8B 1.0 self-taught, fresh-32k-seed1 (ours)": {
+  "alone": {
+   "questions": 457,
+   "acc": 0.7067833698030634,
+   "by_kind": {
+    "category": 0.562,
+    "governing_law": 1.0,
+    "presence_found": 0.529,
+    "presence_not_found": 0.802
+   }
+  },
+  "16k": {
+   "questions": 457,
+   "acc": 0.7221006564551422,
+   "by_kind": {
+    "category": 0.595,
+    "governing_law": 1.0,
+    "presence_found": 0.496,
+    "presence_not_found": 0.86
+   },
+   "paired_vs_alone": {
+    "pairs": 457,
+    "delta": 0.015317286652078774,
+    "ci95": [
+     -0.014767932489451477,
+     0.044967880085653104
+    ],
+    "files": 37
+   }
+  },
+  "32k": {
+   "questions": 438,
+   "acc": 0.6872146118721462,
+   "by_kind": {
+    "category": 0.552,
+    "governing_law": 0.967,
+    "presence_found": 0.448,
+    "presence_not_found": 0.845
+   },
+   "paired_vs_alone": {
+    "pairs": 438,
+    "delta": -0.02054794520547945,
+    "ci95": [
+     -0.060948081264108354,
+     0.014354066985645933
+    ],
+    "files": 17
+   }
+  },
+  "64k": {
+   "questions": 421,
+   "acc": 0.6579572446555819,
+   "by_kind": {
+    "category": 0.514,
+    "governing_law": 0.977,
+    "presence_found": 0.414,
+    "presence_not_found": 0.793
+   },
+   "paired_vs_alone": {
+    "pairs": 421,
+    "delta": -0.06175771971496437,
+    "ci95": [
+     -0.09693877551020408,
+     -0.02631578947368421
+    ],
+    "files": 8
+   }
+  }
+ },
+ "Kev-0.8B 1.0 self-taught, fresh-32k-ndas (ours)": {
+  "alone": {
+   "questions": 457,
+   "acc": 0.7286652078774617,
+   "by_kind": {
+    "category": 0.595,
+    "governing_law": 1.0,
+    "presence_found": 0.603,
+    "presence_not_found": 0.777
+   }
+  },
+  "16k": {
+   "questions": 457,
+   "acc": 0.7352297592997812,
+   "by_kind": {
+    "category": 0.62,
+    "governing_law": 1.0,
+    "presence_found": 0.57,
+    "presence_not_found": 0.81
+   },
+   "paired_vs_alone": {
+    "pairs": 457,
+    "delta": 0.006564551422319475,
+    "ci95": [
+     -0.02188183807439825,
+     0.03524229074889868
+    ],
+    "files": 37
+   }
+  },
+  "32k": {
+   "questions": 438,
+   "acc": 0.7077625570776256,
+   "by_kind": {
+    "category": 0.552,
+    "governing_law": 1.0,
+    "presence_found": 0.534,
+    "presence_not_found": 0.81
+   },
+   "paired_vs_alone": {
+    "pairs": 438,
+    "delta": -0.02054794520547945,
+    "ci95": [
+     -0.05251141552511415,
+     0.011848341232227487
+    ],
+    "files": 17
+   }
+  },
+  "64k": {
+   "questions": 421,
+   "acc": 0.7007125890736342,
+   "by_kind": {
+    "category": 0.541,
+    "governing_law": 0.989,
+    "presence_found": 0.532,
+    "presence_not_found": 0.802
+   },
+   "paired_vs_alone": {
+    "pairs": 421,
+    "delta": -0.04275534441805225,
+    "ci95": [
+     -0.08051948051948052,
+     -0.007281553398058253
+    ],
+    "files": 8
+   }
+  }
+ },
+ "Jev 1.13 (hosted)": {
+  "alone": {
+   "questions": 457,
+   "acc": 0.849015317286652,
+   "by_kind": {
+    "category": 0.818,
+    "governing_law": 1.0,
+    "presence_found": 0.777,
+    "presence_not_found": 0.835
+   }
+  },
+  "16k": {
+   "questions": 457,
+   "acc": 0.849015317286652,
+   "by_kind": {
+    "category": 0.818,
+    "governing_law": 1.0,
+    "presence_found": 0.769,
+    "presence_not_found": 0.843
+   },
+   "paired_vs_alone": {
+    "pairs": 457,
+    "delta": 0.0,
+    "ci95": [
+     -0.01545253863134658,
+     0.015151515151515152
+    ],
+    "files": 37
+   }
+  },
+  "32k": {
+   "questions": 438,
+   "acc": 0.8447488584474886,
+   "by_kind": {
+    "category": 0.784,
+    "governing_law": 1.0,
+    "presence_found": 0.776,
+    "presence_not_found": 0.853
+   },
+   "paired_vs_alone": {
+    "pairs": 438,
+    "delta": -0.00684931506849315,
+    "ci95": [
+     -0.020833333333333332,
+     0.004830917874396135
+    ],
+    "files": 17
+   }
+  },
+  "64k": {
+   "questions": 421,
+   "acc": 0.850356294536817,
+   "by_kind": {
+    "category": 0.838,
+    "governing_law": 1.0,
+    "presence_found": 0.784,
+    "presence_not_found": 0.811
+   },
+   "paired_vs_alone": {
+    "pairs": 421,
+    "delta": -0.0023752969121140144,
+    "ci95": [
+     -0.019464720194647202,
+     0.013888888888888888
+    ],
+    "files": 8
+   }
+  }
+ },
+ "Clef-flash 9B (Workers AI)": {
+  "alone": {
+   "questions": 457,
+   "acc": 0.8336980306345733,
+   "by_kind": {
+    "category": 0.793,
+    "governing_law": 1.0,
+    "presence_found": 0.719,
+    "presence_not_found": 0.86
+   }
+  },
+  "16k": {
+   "questions": 457,
+   "acc": 0.824945295404814,
+   "by_kind": {
+    "category": 0.76,
+    "governing_law": 1.0,
+    "presence_found": 0.727,
+    "presence_not_found": 0.851
+   },
+   "paired_vs_alone": {
+    "pairs": 457,
+    "delta": -0.0087527352297593,
+    "ci95": [
+     -0.03153153153153153,
+     0.013215859030837005
+    ],
+    "files": 37
+   }
+  },
+  "32k": {
+   "questions": 438,
+   "acc": 0.821917808219178,
+   "by_kind": {
+    "category": 0.767,
+    "governing_law": 1.0,
+    "presence_found": 0.724,
+    "presence_not_found": 0.836
+   },
+   "paired_vs_alone": {
+    "pairs": 438,
+    "delta": -0.0136986301369863,
+    "ci95": [
+     -0.03953488372093023,
+     0.016129032258064516
+    ],
+    "files": 17
+   }
+  },
+  "64k": {
+   "questions": 421,
+   "acc": 0.828978622327791,
+   "by_kind": {
+    "category": 0.802,
+    "governing_law": 1.0,
+    "presence_found": 0.739,
+    "presence_not_found": 0.811
+   },
+   "paired_vs_alone": {
+    "pairs": 421,
+    "delta": -0.014251781472684086,
+    "ci95": [
+     -0.02947845804988662,
+     0.0022026431718061676
+    ],
+    "files": 8
+   }
+  }
+ },
+ "Clef 27B (Workers AI)": {
+  "alone": {
+   "questions": 457,
+   "acc": 0.8227571115973742,
+   "by_kind": {
+    "category": 0.777,
+    "governing_law": 1.0,
+    "presence_found": 0.678,
+    "presence_not_found": 0.876
+   }
+  },
+  "16k": {
+   "questions": 457,
+   "acc": 0.849015317286652,
+   "by_kind": {
+    "category": 0.81,
+    "governing_law": 1.0,
+    "presence_found": 0.727,
+    "presence_not_found": 0.893
+   },
+   "paired_vs_alone": {
+    "pairs": 457,
+    "delta": 0.0262582056892779,
+    "ci95": [
+     0.00423728813559322,
+     0.05128205128205128
+    ],
+    "files": 37
+   }
+  },
+  "32k": {
+   "questions": 438,
+   "acc": 0.8584474885844748,
+   "by_kind": {
+    "category": 0.81,
+    "governing_law": 1.0,
+    "presence_found": 0.733,
+    "presence_not_found": 0.922
+   },
+   "paired_vs_alone": {
+    "pairs": 438,
+    "delta": 0.03424657534246575,
+    "ci95": [
+     0.006756756756756757,
+     0.06074766355140187
+    ],
+    "files": 17
+   }
+  },
+  "64k": {
+   "questions": 421,
+   "acc": 0.838479809976247,
+   "by_kind": {
+    "category": 0.811,
+    "governing_law": 1.0,
+    "presence_found": 0.685,
+    "presence_not_found": 0.892
+   },
+   "paired_vs_alone": {
+    "pairs": 421,
+    "delta": 0.0023752969121140144,
+    "ci95": [
+     -0.017587939698492462,
+     0.01818181818181818
+    ],
+    "files": 8
+   }
+  }
+ }
+}

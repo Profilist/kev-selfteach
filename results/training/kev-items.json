@@ -1,0 +1,57 @@
+{
+ "teacher": "jaredpalmer/kev-0.8b (Kev-0.8B 1.0) reading each item alone, raw logits (KEV_TEMPERATURE=1.0)",
+ "teacher_accuracy_on_training_items": {
+  "complaint product": {
+   "acc": 0.9557,
+   "questions": 4691
+  },
+  "all": {
+   "acc": 0.9305,
+   "questions": 11820
+  },
+  "complaint issue": {
+   "acc": 0.9063,
+   "questions": 2797
+  },
+  "decision record": {
+   "acc": 0.9187,
+   "questions": 4332
+  }
+ },
+ "teacher_accuracy_alone_on_fresh_test_complaints": 0.803,
+ "note": "items come from Kev's own training sets (documents-v1 train, decision-v2 train), so the teacher has partly memorised their labels; targets never read a label but are label-informed in this phase",
+ "training_records": 2389,
+ "training_questions": 26446,
+ "training_args": {
+  "lr": 5e-05,
+  "accum": 4,
+  "batch": 1,
+  "epochs": 1,
+  "seed": 0,
+  "max_state": 32768,
+  "shared_prefix": 1,
+  "init_from": "jaredpalmer/kev-0.8b",
+  "checkpointing": 1,
+  "dtype": "bf16",
+  "weights_dtype": "fp32"
+ },
+ "training_metrics": {
+  "wall_seconds": 2811.4974932670593,
+  "records_seen": 2389,
+  "requested_records": 2389,
+  "truncated_records": 0,
+  "rejected_records": 0,
+  "optimizer_steps": 598,
+  "forward_tokens": 17484522,
+  "optimizer_seconds": 2.23423171043396,
+  "world_size": 1,
+  "backbone_save_seconds": 0.2,
+  "weights": "lora",
+  "peak_device_bytes": 30915999744,
+  "device": "cuda",
+  "dtype": "bf16",
+  "batch": 1,
+  "peak_rss_bytes": 5548941312
+ },
+ "hardware": "1x H100 NVL (RunPod community cloud), 47 min wall"
+}
