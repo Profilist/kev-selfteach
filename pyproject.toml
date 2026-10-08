@@ -1,0 +1,16 @@
+[project]
+name = "kev-selfteach"
+version = "0.1.0"
+description = "Self-taught long context for Kev-0.8B: the model's own one-at-a-time answers teach it to read hundreds of documents at once."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+requires-python = ">=3.13"
+dependencies = [
+    "httpx>=0.28.1",
+    "matplotlib>=3.11.2",
+    "modal>=1.5.5",
+    "pandas>=3.0.6",
+    "pyarrow>=25.0.1",
+    "transformers>=5.17.0",
+]

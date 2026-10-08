@@ -1,0 +1,18 @@
+# secrets
+.env
+
+# environments and caches
+.venv/
+__pycache__/
+*.pyc
+
+# local only: raw data, checkpoints, hosted-model responses, earlier work, drafts, research log, tooling
+data/
+archive/
+drafts/
+RESEARCH_LOG.md
+.agents/
+
+
+# write-up (kept local)
+docs/

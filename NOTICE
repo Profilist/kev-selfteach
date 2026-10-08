@@ -1,0 +1,9 @@
+kev-selfteach
+Copyright 2026 Larris Xie
+
+This project builds on Kev (https://github.com/jaredpalmer/kev), Copyright 2026 Jared Palmer, licensed under the
+Apache License, Version 2.0. bench/chunked_scorer.py adapts the evaluation pass of Kev's kev/shared_prefix.py, and
+selfteach/records.py adapts the record rendering of Kev's kev/api.py.
+
+Data used by the scripts is not redistributed here and keeps its own licence: CFPB consumer complaints (US government
+work), CUAD and ContractNLI (CC BY 4.0), Kev's suites (Apache-2.0).
