@@ -1,6 +1,6 @@
 """Self-taught long context: does a model read an item packed among many others the way it reads that item alone?
 
-On the all-complaints and all-contracts tests, for each Kev-family model and document length:
+On the packed-complaints and all-contracts tests, for each Kev-family model and document length:
   acc          accuracy against the dataset label
   = teacher    share of questions whose top answer matches Kev-0.8B 1.0's answer with the item alone (the self-taught
                model's training target, measured on test items no model trained on)
@@ -116,7 +116,7 @@ def main():
            "contracts": analyze(contracts(), ["alone", "16k", "32k", "64k"]),
            "complaints_edge_errors": edge_errors()}
     json.dump(out, open(ROOT / "results" / "selfteach.json", "w"), indent=1)
-    print("\n=== all-complaints: wrong answers naming the first or last complaint's product")
+    print("\n=== packed-complaints: wrong answers naming the first or last complaint's product")
     for model, cells in out["complaints_edge_errors"].items():
         print(f"{model}: " + ", ".join(f"{b} {c['edge']}/{c['wrong']} ({c['edge'] / max(c['wrong'], 1):.0%})" for b, c in cells.items()))
     for test in ("complaints", "contracts"):

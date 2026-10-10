@@ -7,7 +7,7 @@ sha256 before scoring. Kev's code is the sparse checkout in data/kev (github.com
 
     uv run modal volume put jev-runs data/longdoc-v1-rebuild/development.jsonl /longdoc-v1/development.jsonl
     uv run modal run infra/modal/kevbench.py --runs-arg kev-1.0=jaredpalmer/kev-0.8b,full-long=/runs/kevbench/ckpt/full-long
-    uv run modal run infra/modal/kevbench.py --runs-arg dense-kev-1.0=jaredpalmer/kev-0.8b@dense-complaints-v0   # NAME=RUN@SUITE
+    uv run modal run infra/modal/kevbench.py --runs-arg packed-kev-1.0=jaredpalmer/kev-0.8b@packed-complaints-v0   # NAME=RUN@SUITE
     uv run modal volume get jev-runs /kevbench data/kevbench/results
 
 Long reads should be submitted with `modal deploy` + Function.spawn (see `submit` below): work dispatched by a local
@@ -39,7 +39,7 @@ image = (  # mirrors Kev's modal_app.py image (minus serving and test extras)
           "PYTHONUNBUFFERED": "1", "TRITON_CACHE_DIR": "/hf/triton-cache", "KEV_TEMPERATURE": "1.0"})
     .add_local_dir(KEV / "kev", "/root/kev")
     .add_local_file(KEV / "evals" / "longdoc-v1" / "manifest.json", "/root/evals/longdoc-v1/manifest.json")
-    .add_local_file(ROOT / "data" / "dense-complaints-v0" / "manifest.json", "/root/evals/dense-complaints-v0/manifest.json")
+    .add_local_file(ROOT / "data" / "packed-complaints-v0" / "manifest.json", "/root/evals/packed-complaints-v0/manifest.json")
 )
 
 

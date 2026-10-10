@@ -1,6 +1,6 @@
-"""All-complaints past 64k (data/dense-complaints-v1): accuracy by length, paired with each complaint read alone.
+"""Packed-complaints past 64k (data/packed-complaints-v1): accuracy by length, paired with each complaint read alone.
 
-For each model scored on dense-complaints-v1 (bench/chunked_scorer.py rows):
+For each model scored on packed-complaints-v1 (bench/chunked_scorer.py rows):
   acc            accuracy at alone / 32k / 64k / 128k / 256k
   vs alone       paired by question against the same complaint alone, 95 % bootstrap over complaints (128k and 256k have
                  only 8 and 4 documents, too few to resample documents; each complaint appears twice per long length)
@@ -19,14 +19,14 @@ from pathlib import Path
 from .report import READS as V0_READS, load_rows
 
 ROOT = Path(__file__).resolve().parents[2]
-SUITE = ROOT / "data" / "dense-complaints-v1"
+SUITE = ROOT / "data" / "packed-complaints-v1"
 RES = ROOT / "data" / "kevbench"
 BUCKETS = ["alone", "32k", "64k", "128k", "256k"]
 MODELS = {  # name -> (rows dir in data/kevbench/results, key in bench.complaints.report.READS for the v0 consistency check)
-    "Kev-0.8B 1.0": ("kev-1.0--dense-complaints-v1", "Kev-0.8B 1.0"),
-    "Self-taught, fresh-32k": ("fresh-32k--dense-complaints-v1", "Kev-0.8B 1.0 self-taught, fresh-32k (ours)"),
-    "Self-taught, fresh-64k": ("fresh-64k--dense-complaints-v1", None),
-    "Self-taught, fresh-128k": ("fresh-128k--dense-complaints-v1", None),
+    "Kev-0.8B 1.0": ("kev-1.0--packed-complaints-v1", "Kev-0.8B 1.0"),
+    "Self-taught, fresh-32k": ("fresh-32k--packed-complaints-v1", "Kev-0.8B 1.0 self-taught, fresh-32k (ours)"),
+    "Self-taught, fresh-64k": ("fresh-64k--packed-complaints-v1", None),
+    "Self-taught, fresh-128k": ("fresh-128k--packed-complaints-v1", None),
 }
 
 
@@ -87,7 +87,7 @@ def main():
                 b = doc.split("/")[1]
                 if b not in ("32k", "64k"):
                     continue
-                key = (doc.replace("dense-complaints-v0/", "dense-complaints-v1/"), qid[1:])
+                key = (doc.replace("packed-complaints-v0/", "packed-complaints-v1/"), qid[1:])
                 if key in cell[b]:
                     n += 1
                     same += cell[b][key][0] == r["keys"][top(r)]

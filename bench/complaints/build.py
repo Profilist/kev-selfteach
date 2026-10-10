@@ -1,4 +1,4 @@
-"""All-complaints ("dense") long-document test: every complaint in a long document gets its own question.
+"""Packed-complaints long-document test: every complaint in a long document gets its own question.
 
 A decision model reads the document once and answers each question in its own branch off that read, so asking about every
 item costs little more than asking about one. This test measures whether it keeps every part of a long document straight,
@@ -17,7 +17,7 @@ One pool of complaints, balanced over the nine products, is asked at every lengt
 Written as a frozen eval-only suite in Kev's layout (manifest.json + development.jsonl, serving context: 64k-token
 states), so `kev.benchmark --suite` scores it like Kev's own suites; index.json maps each record to its bucket.
 
-    uv run python -m bench.complaints.build --out data/dense-complaints-v0
+    uv run python -m bench.complaints.build --out data/packed-complaints-v0
 """
 import argparse
 import hashlib
@@ -114,10 +114,10 @@ def main(a):
         c["tokens"] = tokens([block(c)])
     records, index = [], []
     def record(bucket, d, state_tokens):
-        rid = f"dense-complaints-v0/{bucket}/{sum(i['bucket'] == bucket for i in index):04d}"
+        rid = f"packed-complaints-v0/{bucket}/{sum(i['bucket'] == bucket for i in index):04d}"
         index.append({"id": rid, "bucket": bucket, "complaints": [c["id"] for c in d], "state_tokens": state_tokens})
         return {"state": "\n\n".join(block(c) for c in d), "questions": {f"c{c['id']}": question(c) for c in d},
-                "_meta": {"id": rid, "source": "dense_cfpb", "group_id": rid, "variant": "clean", "split": "development",
+                "_meta": {"id": rid, "source": "packed_cfpb", "group_id": rid, "variant": "clean", "split": "development",
                           "bucket": bucket, "state_tokens": state_tokens, "complaints": len(d)}}
 
     for c in pool:   # alone: each complaint is its own state
@@ -151,10 +151,10 @@ def main(a):
     with open(out / "development.jsonl", "w") as f:
         for r in records:
             f.write(json.dumps(r) + "\n")
-    manifest = {"version": "dense-complaints-v0", "partitions": ["development"], "locked": [],
+    manifest = {"version": "packed-complaints-v0", "partitions": ["development"], "locked": [],
                 "files": {"development.jsonl": {"sha256": hashlib.sha256((out / "development.jsonl").read_bytes()).hexdigest(),
                                                 "records": len(records), "questions": sum(len(r["questions"]) for r in records)}},
-                "eval_only": True, "report_only": True, "trainable_sources": [], "eval_only_sources": ["dense_cfpb"], "holdout_sources": [],
+                "eval_only": True, "report_only": True, "trainable_sources": [], "eval_only_sources": ["packed_cfpb"], "holdout_sources": [],
                 "context": {"max_state": 65536, "max_branch": 65536 + 8192, "max_packed": 2 * 65536 + 8192, "truncate": False},
                 "source": "davidheineman/consumer-finance-complaints-large@44cfa170a402e254407470275ce05d7dcaccde30 (shard 10)",
                 "seed": a.seed, "tokenizer": TOKENIZER, "buckets": BUCKETS, "fill": FILL, "per_product": a.per_product}
@@ -165,7 +165,7 @@ def main(a):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--out", default="data/dense-complaints-v0")
+    p.add_argument("--out", default="data/packed-complaints-v0")
     p.add_argument("--per_product", type=int, default=220)
     p.add_argument("--min_tokens", type=int, default=80)
     p.add_argument("--max_tokens", type=int, default=600)

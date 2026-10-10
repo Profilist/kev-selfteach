@@ -1,4 +1,4 @@
-"""Hosted Jev on the all-complaints test (data/dense-complaints-v0): every question of a document in one request.
+"""Hosted Jev on the packed-complaints test (data/packed-complaints-v0): every question of a document in one request.
 
 Jev ingests the state once per request and answers each question against it independently (docs.typesafe.ai/models.md:
 billed per input token, state counted once; 32k tokens for state + the longest question, 64k for the whole request).
@@ -16,8 +16,8 @@ from pathlib import Path
 
 from ..hosted import ROOT, Jev
 
-SUITE = ROOT / "data" / "dense-complaints-v0"
-OUT = ROOT / "data" / "hosted" / "jev_dense_rows.jsonl"
+SUITE = ROOT / "data" / "packed-complaints-v0"
+OUT = ROOT / "data" / "hosted" / "jev_complaints_rows.jsonl"
 PRICE = 0.042 / 1e6   # $ per input token
 
 
@@ -45,7 +45,7 @@ def requests():
 
 
 async def main(a):
-    jev = Jev(ROOT / "data" / "hosted" / "jev_dense_cache.jsonl", rps=20, tps=90_000, concurrency=24)
+    jev = Jev(ROOT / "data" / "hosted" / "jev_complaints_cache.jsonl", rps=20, tps=90_000, concurrency=24)
     reqs = list(requests())
     spent = {"tokens": 0}
     rows = []

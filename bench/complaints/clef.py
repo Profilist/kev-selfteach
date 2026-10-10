@@ -1,4 +1,4 @@
-"""Cloudflare's Clef / Clef-flash (Workers AI, Jev-compatible) on the all-complaints test (data/dense-complaints-v0).
+"""Cloudflare's Clef / Clef-flash (Workers AI, Jev-compatible) on the packed-complaints test (data/packed-complaints-v0).
 
 Clef takes 1-64 typed questions per request and silently truncates a state that does not fit its 65,536-token window
 (developers.cloudflare.com/workers-ai/models/clef), so long documents are asked in groups small enough that state plus
@@ -21,7 +21,7 @@ import httpx
 
 from ..hosted import ROOT, Cache, Limiter
 
-SUITE = ROOT / "data" / "dense-complaints-v0"
+SUITE = ROOT / "data" / "packed-complaints-v0"
 PRICE = {"clef": 0.24 / 1e6, "clef-flash": 0.09 / 1e6}   # $ per input token, Workers AI list price
 GROUP = {"alone": 64, "8k": 64, "16k": 64, "32k": 32, "64k": 16}
 RETRY = {408, 409, 429, 500, 502, 503, 504, 529}
@@ -43,7 +43,7 @@ class Clef:
                     f"/ai/run/@cf/cloudflare/{model}")
         self.client = httpx.AsyncClient(timeout=httpx.Timeout(300.0, connect=15.0),
                                         headers={"Authorization": f"Bearer {credential('CLOUDFLARE_API_TOKEN')}"})
-        self.cache = Cache(ROOT / "data" / "hosted" / f"clef_dense_cache_{model}.jsonl")
+        self.cache = Cache(ROOT / "data" / "hosted" / f"clef_complaints_cache_{model}.jsonl")
         self.limiter, self.sem = Limiter(rps, tps), asyncio.Semaphore(concurrency)
 
     async def ask(self, state: str, questions: dict) -> dict:
@@ -96,7 +96,7 @@ async def main(a):
         ans = (rec["body"] or {}).get("answers", {}).get(q, {}) if rec["status"] == 200 else rec["body"]
         print(f"status {rec['status']} | {a.model} answer for {q}: {json.dumps(ans)[:300]} | label {labels[q]} | usage {(rec['body'] or {}).get('usage') if rec['status'] == 200 else '-'}")
         return
-    out = ROOT / "data" / "hosted" / f"clef_dense_rows_{a.model}.jsonl"
+    out = ROOT / "data" / "hosted" / f"clef_complaints_rows_{a.model}.jsonl"
     rows, spent, truncated = [], {"tokens": 0}, []
 
     async def one(rid, bucket, state, ask, labels, sent):

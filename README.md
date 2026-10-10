@@ -23,7 +23,7 @@ selfteach/          training side: one builder per training set, then targets an
   targets.py          teacher answers -> soft targets (Kev's environment, on the GPU box)
   report.py           self-taught analyses (agreement with the alone answer, edge errors) -> results/selfteach.json
 bench/              test side: one folder per test
-  complaints/         the all-complaints test
+  complaints/         the packed-complaints test
     build.py            suite, alone to 64k
     build_long.py       suite, 128k and 256k
     split.py            scoring copies with each document's questions in groups (fits Kev's scorer in GPU memory)
@@ -64,9 +64,9 @@ Inputs expected under `data/` (not redistributed):
 
 ```bash
 # the tests (CPU)
-uv run python -m bench.complaints.build --out data/dense-complaints-v0
-uv run python -m bench.complaints.split            # scoring copies: dense-complaints-v0-split{,-long}
-uv run python -m bench.complaints.build_long       # 128k / 256k: dense-complaints-v1{,-check}
+uv run python -m bench.complaints.build --out data/packed-complaints-v0
+uv run python -m bench.complaints.split            # scoring copies: packed-complaints-v0-split{,-long}
+uv run python -m bench.complaints.build_long       # 128k / 256k: packed-complaints-v1{,-check}
 PYTHONPATH=data/kev data/kev/.venv/bin/python bench/contracts/build.py
 
 # training data (CPU): each run's items alone (for the teacher) and its packed documents, under data/selfteach/<run>/

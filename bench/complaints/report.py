@@ -1,7 +1,7 @@
-"""Analysis of the all-complaints ("dense") test: accuracy by document length, paired by complaint against the same
+"""Analysis of the packed-complaints test: accuracy by document length, paired by complaint against the same
 complaint read alone, plus where errors come from (a neighbour's product?) and where in the document they happen.
 
-Rows come from kev.benchmark reads of data/dense-complaints-v0, possibly split across runs (a cancelled read's
+Rows come from kev.benchmark reads of data/packed-complaints-v0, possibly split across runs (a cancelled read's
 predictions.jsonl, plus top-up reads whose records may hold one document's questions in groups: ids ending "#qNN").
 
     uv run python -m bench.complaints.report
@@ -12,23 +12,23 @@ from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SUITE = ROOT / "data" / "dense-complaints-v0"
+SUITE = ROOT / "data" / "packed-complaints-v0"
 RES = ROOT / "data" / "kevbench"
 READS = {  # model -> files holding its rows (predictions.jsonl lines carry "rows"; rows.json is a list)
-    "Kev-0.8B 1.0": [RES / "partial2" / "dense-kev-1.0.predictions.jsonl", RES / "results" / "dense-kev-1.0-tail" / "predictions.jsonl",
-                     RES / "results" / "dense-kev-1.0-tail2" / "rows.json"],
-    "Kev-0.8B 1.0 + complaint-document delta (ours)": [RES / "results" / "delta-v1--dense-complaints-v0-split" / "rows.json"],
-    "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)": [RES / "results" / "delta-v1-s1--dense-complaints-v0-split" / "rows.json"],
-    "Kev-0.8B 1.0 self-taught, kev-items (ours)": [RES / "results" / "kev-items--dense-complaints-v0-split" / "rows.json"],
-    "Kev-0.8B 1.0 self-taught, fresh-32k (ours)": [RES / "results" / "fresh-32k--dense-complaints-v0-split" / "rows.json"],
-    "Kev-0.8B 1.0 self-taught, fresh-32k-seed1 (ours)": [RES / "results" / "fresh-32k-seed1--dense-complaints-v0-split-long" / "rows.json"],
-    "Kev-0.8B 1.0 self-taught, fresh-32k-ndas (ours)": [RES / "results" / "fresh-32k-ndas--dense-complaints-v0-split-long" / "rows.json"],
-    "Kev-0.8B + long-document training (ours)": [RES / "partial2" / "dense-full-long.predictions.jsonl",
-                                                 RES / "results" / "dense-full-long-tail" / "predictions.jsonl",
-                                                 RES / "results" / "dense-full-long-tail2" / "rows.json"],
+    "Kev-0.8B 1.0": [RES / "partial2" / "packed-kev-1.0.predictions.jsonl", RES / "results" / "packed-kev-1.0-tail" / "predictions.jsonl",
+                     RES / "results" / "packed-kev-1.0-tail2" / "rows.json"],
+    "Kev-0.8B 1.0 + complaint-document delta (ours)": [RES / "results" / "delta-v1--packed-complaints-v0-split" / "rows.json"],
+    "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)": [RES / "results" / "delta-v1-s1--packed-complaints-v0-split" / "rows.json"],
+    "Kev-0.8B 1.0 self-taught, kev-items (ours)": [RES / "results" / "kev-items--packed-complaints-v0-split" / "rows.json"],
+    "Kev-0.8B 1.0 self-taught, fresh-32k (ours)": [RES / "results" / "fresh-32k--packed-complaints-v0-split" / "rows.json"],
+    "Kev-0.8B 1.0 self-taught, fresh-32k-seed1 (ours)": [RES / "results" / "fresh-32k-seed1--packed-complaints-v0-split-long" / "rows.json"],
+    "Kev-0.8B 1.0 self-taught, fresh-32k-ndas (ours)": [RES / "results" / "fresh-32k-ndas--packed-complaints-v0-split-long" / "rows.json"],
+    "Kev-0.8B + long-document training (ours)": [RES / "partial2" / "packed-full-long.predictions.jsonl",
+                                                 RES / "results" / "packed-full-long-tail" / "predictions.jsonl",
+                                                 RES / "results" / "packed-full-long-tail2" / "rows.json"],
 }
 BUCKETS = ["alone", "8k", "16k", "32k", "64k"]
-JEV = ROOT / "data" / "hosted" / "jev_dense_rows.jsonl"
+JEV = ROOT / "data" / "hosted" / "jev_complaints_rows.jsonl"
 
 
 def load_rows(files):
@@ -115,8 +115,8 @@ def main():
             correct[(bucket, qid[1:])] = int(r["keys"][k] == r["label"] if isinstance(r["label"], str) else k == r["label"])
         out[model] = analyze(pred, correct)
     external = {"Jev 1.13 (hosted; 64k split into two 32k halves)": JEV,
-                "Clef-flash 9B (Workers AI)": ROOT / "data" / "hosted" / "clef_dense_rows_clef-flash.jsonl",
-                "Clef 27B (Workers AI)": ROOT / "data" / "hosted" / "clef_dense_rows_clef.jsonl"}
+                "Clef-flash 9B (Workers AI)": ROOT / "data" / "hosted" / "clef_complaints_rows_clef-flash.jsonl",
+                "Clef 27B (Workers AI)": ROOT / "data" / "hosted" / "clef_complaints_rows_clef.jsonl"}
     for name, path in external.items():   # hosted models: bench/complaints/jev.py, bench/complaints/clef.py
         if not path.exists():
             continue

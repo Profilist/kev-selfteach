@@ -1,5 +1,5 @@
 {
- "version": "dense-complaints-v0",
+ "version": "packed-complaints-v0",
  "partitions": [
   "development"
  ],
@@ -15,7 +15,7 @@
  "report_only": true,
  "trainable_sources": [],
  "eval_only_sources": [
-  "dense_cfpb"
+  "packed_cfpb"
  ],
  "holdout_sources": [],
  "context": {

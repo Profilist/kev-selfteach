@@ -3,9 +3,9 @@ second seed): complaints Kev never trained on, so no label reaches the teacher.
 
 The first attempt (build_kev_items.py) used complaints from Kev's documents-v1 train, and the teacher's answers matched
 their labels on 92.8 % of training questions, against about 80 % on fresh complaints. Here every complaint item is fresh:
-  - CFPB narratives from the same Hub snapshot and shard as the all-complaints test (davidheineman/
+  - CFPB narratives from the same Hub snapshot and shard as the packed-complaints test (davidheineman/
     consumer-finance-complaints-large @ 44cfa17, shard 10), 80-600 tokens like the test;
-  - minus Kev's documents-v1 train and the all-complaints test pool (by complaint id and by normalised text);
+  - minus Kev's documents-v1 train and the packed-complaints test pool (by complaint id and by normalised text);
   - drawn at random with no product filter: no label is read to select, balance or target them.
 Each is asked documents-v1's product question (nine options, verbatim), pointed at the complaint's id (the first
 attempt also asked documents-v1's issue question where it had one; its options depend on the product, a label). The dataset's
@@ -31,7 +31,7 @@ from transformers import AutoTokenizer
 from bench.complaints.build import KEV_TRAIN, PRODUCT, SHARD, norm, product_question
 from .common import CONTEXT, DATA, HEADERS, ROOT, TOKENIZER, name_it, write_packed
 
-TEST = ROOT / "data" / "dense-complaints-v0"
+TEST = ROOT / "data" / "packed-complaints-v0"
 RECORDS = DATA / "kev-items" / "alone-records" / "development.jsonl"
 OUT = DATA / "fresh-32k"
 
@@ -42,7 +42,7 @@ def main(a):
     ntok = lambda s: len(tok(s, add_special_tokens=False)["input_ids"])
     instructions, criteria = product_question()
 
-    # ---- exclusions: Kev's documents-v1 train and the all-complaints test pool
+    # ---- exclusions: Kev's documents-v1 train and the packed-complaints test pool
     seen = {hashlib.sha256(norm(json.loads(line)["state"]).encode()).hexdigest() for line in open(KEV_TRAIN)}
     test_ids = set()
     for line in open(TEST / "development.jsonl"):

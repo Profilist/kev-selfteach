@@ -2,7 +2,7 @@
 
 Items, each with a fixed id and header style so the teacher answers it once:
   complaints  Kev's public documents-v1 train (CFPB narratives) with their product and issue questions; none is in the
-              all-complaints test pool, which was deduplicated against documents-v1 train. Kev trained on these, and its
+              packed-complaints test pool, which was deduplicated against documents-v1 train. Kev trained on these, and its
               answers turned out to match their labels on 93 % of questions, so this run is not label-free (build_fresh.py is)
   records     Kev's decision-v2 train records with their own questions (ten public datasets), each named by its record id
 Writes, under data/selfteach/kev-items/:

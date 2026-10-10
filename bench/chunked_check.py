@@ -1,6 +1,6 @@
 """Check the chunked scorer (bench/chunked_scorer.py) against Kev's unpatched scorer on the same documents and checkpoint.
 
-CHUNKED: rows for dense-complaints-v1-check (v0's first two 64k documents, each one record with all its questions).
+CHUNKED: rows for packed-complaints-v1-check (v0's first two 64k documents, each one record with all its questions).
 REFERENCE: Kev's unpatched rows for v0's 64k documents, where each document was split into records of at most 15
 questions that each re-read it. Same complaints, questions and model, so every probability should match up to kernel
 rounding. Exits non-zero unless every question pairs, the top answers agree on at least 99.5 % and max |dp| <= 5e-3.
@@ -16,7 +16,7 @@ def top(r):
 
 
 def main(chunked, reference):
-    a = {(r["id"].replace("dense-complaints-v1/", "dense-complaints-v0/").split("#")[0], r["question"]): r for r in json.load(open(chunked))}
+    a = {(r["id"].replace("packed-complaints-v1/", "packed-complaints-v0/").split("#")[0], r["question"]): r for r in json.load(open(chunked))}
     docs = {doc for doc, _ in a}
     b = {(r["id"].split("#")[0], r["question"]): r for r in json.load(open(reference)) if r["id"].split("#")[0] in docs}
     common = sorted(set(a) & set(b))

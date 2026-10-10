@@ -57,7 +57,7 @@
   "note": "per training question (items repeat across packed documents), from selfteach_targets.py"
  },
  "teacher_accuracy_alone_on_test_complaints": 0.803,
- "items": "5,219 fresh CFPB complaints (shard 10, not in Kev's documents-v1 train or the all-complaints test pool, no product filter) + phase 1's 3,432 decision-v2 train records",
+ "items": "5,219 fresh CFPB complaints (shard 10, not in Kev's documents-v1 train or the packed-complaints test pool, no product filter) + phase 1's 3,432 decision-v2 train records",
  "training_records": 2391,
  "training_questions": 26899,
  "training_args": {
