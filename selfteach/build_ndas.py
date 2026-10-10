@@ -4,7 +4,7 @@ fresh-32k (fresh complaints + decision records) fixed packed complaints but carr
 contract items, so training also holds long, multi-question items in Kev's contract review-file layout.
 
 CUAD can't be used: Kev's longdoc-v1 deals every CUAD contract to its development or locked test partition, and our
-all-contracts test reads the development half. The contracts are ContractNLI's train split instead (Koreeda and Manning,
+packed-contracts test reads the development half. The contracts are ContractNLI's train split instead (Koreeda and Manning,
 Findings of EMNLP 2021, CC BY 4.0; stanfordnlp.github.io/contract-nli, the zip Kev's breadth-v1 builder pins, sha256
 e03fc77b...). Kev's breadth-v1 suite reads only ContractNLI's dev and test splits, and no ContractNLI document is in Kev's
 training data.

@@ -1,4 +1,4 @@
-"""Analysis of the all-contracts test (data/dense-contracts-v0): accuracy by review-file length, paired by question with
+"""Analysis of the packed-contracts test (data/packed-contracts-v0): accuracy by review-file length, paired by question with
 the same question asked of the contract alone, and by question kind (clause found / clause not found / clause category /
 governing law).
 
@@ -13,13 +13,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 RES = ROOT / "data" / "kevbench"
 BUCKETS = ["alone", "16k", "32k", "64k"]
-KEV_READS = {"Kev-0.8B 1.0": RES / "results" / "kev-1.0--dense-contracts-v0" / "rows.json",
-             "Kev-0.8B 1.0 + complaint-document delta (ours)": RES / "results" / "delta-v1--dense-contracts-v0" / "rows.json",
-             "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)": RES / "results" / "delta-v1-s1--dense-contracts-v0" / "rows.json",
-             "Kev-0.8B 1.0 self-taught, kev-items (ours)": RES / "results" / "kev-items--dense-contracts-v0" / "rows.json",
-             "Kev-0.8B 1.0 self-taught, fresh-32k (ours)": RES / "results" / "fresh-32k--dense-contracts-v0" / "rows.json",
-             "Kev-0.8B 1.0 self-taught, fresh-32k-seed1 (ours)": RES / "results" / "fresh-32k-seed1--dense-contracts-v0" / "rows.json",
-             "Kev-0.8B 1.0 self-taught, fresh-32k-ndas (ours)": RES / "results" / "fresh-32k-ndas--dense-contracts-v0" / "rows.json"}
+KEV_READS = {"Kev-0.8B 1.0": RES / "results" / "kev-1.0--packed-contracts-v0" / "rows.json",
+             "Kev-0.8B 1.0 + complaint-document delta (ours)": RES / "results" / "delta-v1--packed-contracts-v0" / "rows.json",
+             "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)": RES / "results" / "delta-v1-s1--packed-contracts-v0" / "rows.json",
+             "Kev-0.8B 1.0 self-taught, kev-items (ours)": RES / "results" / "kev-items--packed-contracts-v0" / "rows.json",
+             "Kev-0.8B 1.0 self-taught, fresh-32k (ours)": RES / "results" / "fresh-32k--packed-contracts-v0" / "rows.json",
+             "Kev-0.8B 1.0 self-taught, fresh-32k-seed1 (ours)": RES / "results" / "fresh-32k-seed1--packed-contracts-v0" / "rows.json",
+             "Kev-0.8B 1.0 self-taught, fresh-32k-ndas (ours)": RES / "results" / "fresh-32k-ndas--packed-contracts-v0" / "rows.json"}
 HOSTED = {"Jev 1.13 (hosted)": ROOT / "data" / "hosted" / "jev_contracts_rows.jsonl",
           "Clef-flash 9B (Workers AI)": ROOT / "data" / "hosted" / "clef_contracts_rows_clef-flash.jsonl",
           "Clef 27B (Workers AI)": ROOT / "data" / "hosted" / "clef_contracts_rows_clef.jsonl"}

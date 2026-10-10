@@ -1,5 +1,5 @@
 {
- "version": "dense-contracts-v0",
+ "version": "packed-contracts-v0",
  "partitions": [
   "development"
  ],
@@ -8,7 +8,7 @@
  "report_only": true,
  "trainable_sources": [],
  "eval_only_sources": [
-  "dense_cuad"
+  "packed_cuad"
  ],
  "holdout_sources": [],
  "context": {

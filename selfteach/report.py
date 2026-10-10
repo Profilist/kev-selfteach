@@ -1,6 +1,6 @@
 """Self-taught long context: does a model read an item packed among many others the way it reads that item alone?
 
-On the packed-complaints and all-contracts tests, for each Kev-family model and document length:
+On the packed-complaints and packed-contracts tests, for each Kev-family model and document length:
   acc          accuracy against the dataset label
   = teacher    share of questions whose top answer matches Kev-0.8B 1.0's answer with the item alone (the self-taught
                model's training target, measured on test items no model trained on)

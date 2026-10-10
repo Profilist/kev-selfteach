@@ -1,4 +1,4 @@
-"""All-contracts ("dense") long-document test: every contract in a review file gets its own questions.
+"""Packed-contracts long-document test: every contract in a review file gets its own questions.
 
 A layout none of our training used: CUAD contracts (CC BY 4.0; Hendrycks, Burns, Chen and Ball, NeurIPS 2021; The Atticus
 Project) in Kev's longdoc-v1 review-file format ("===== Contract k of n: <title> ====="). Every contract gets longdoc-v1's
@@ -61,7 +61,7 @@ def main(a):
     def add(bucket, titles):
         state, _ = L.cuad_state([(t, contracts[t]["text"], False) for t in titles])
         n_state = count(state)
-        doc = f"dense-contracts-v0/{bucket}/{sum(i['bucket'] == bucket for i in index):04d}"
+        doc = f"packed-contracts-v0/{bucket}/{sum(i['bucket'] == bucket for i in index):04d}"
         index.append({"id": doc, "bucket": bucket, "contracts": titles, "state_tokens": n_state})
         qids = [q for t in titles for q in questions[t]]
         allq = {q: d for t in titles for q, d in questions[t].items()}
@@ -69,7 +69,7 @@ def main(a):
         for k in range(0, len(qids), g):
             rid = doc if len(qids) <= g else f"{doc}#q{k // g:02d}"
             records.append({"state": state, "questions": {q: allq[q] for q in qids[k:k + g]},
-                            "_meta": {"id": rid, "doc_id": doc, "source": "dense_cuad", "group_id": doc, "variant": "clean",
+                            "_meta": {"id": rid, "doc_id": doc, "source": "packed_cuad", "group_id": doc, "variant": "clean",
                                       "split": "development", "bucket": bucket, "state_tokens": n_state, "contracts": len(titles)}})
         return n_state
 
@@ -77,7 +77,7 @@ def main(a):
         add("alone", [t])
     for name, T in BUCKETS.items():
         lo, hi = int(FILL[0] * T), int(FILL[1] * T)
-        rng = random.Random(f"dense-contracts-v0:{name}:{a.seed}")
+        rng = random.Random(f"dense-contracts-v0:{name}:{a.seed}")   # seed text from the suite's first name, kept so the data reproduces
         order = pool[:]
         rng.shuffle(order)
         bins = []   # [titles, estimated tokens]; first fit in random order keeps neighbours random
@@ -101,13 +101,13 @@ def main(a):
         sizes = [i["state_tokens"] for i in index if i["bucket"] == name]
         print(f"{name}: {len(sizes)} review files, {kept} of {len(pool)} contracts asked, {min(sizes):,}-{max(sizes):,} state tokens")
 
-    out = ROOT / "data" / "dense-contracts-v0"
+    out = ROOT / "data" / "packed-contracts-v0"
     out.mkdir(parents=True, exist_ok=True)
     with open(out / "development.jsonl", "w") as f:
         for r in records:
             f.write(json.dumps(r) + "\n")
-    manifest = {"version": "dense-contracts-v0", "partitions": ["development"], "locked": [], "eval_only": True, "report_only": True,
-                "trainable_sources": [], "eval_only_sources": ["dense_cuad"], "holdout_sources": [],
+    manifest = {"version": "packed-contracts-v0", "partitions": ["development"], "locked": [], "eval_only": True, "report_only": True,
+                "trainable_sources": [], "eval_only_sources": ["packed_cuad"], "holdout_sources": [],
                 "context": {"max_state": 65536, "max_branch": 65536 + 8192, "max_packed": 2 * 65536 + 8192, "truncate": False},
                 "cuad": L.CUAD, "builder": "Kev scripts/build_longdoc_v1.py @ a0255ce (load_cuad, deal, cuad_questions, cuad_request, cuad_state)",
                 "tokenizer": L.TOKENIZER, "window": L.WINDOW, "max_tokens": a.max_tokens, "seed": a.seed,

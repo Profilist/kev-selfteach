@@ -1,4 +1,4 @@
-"""Hosted decision models on the all-contracts test (data/dense-contracts-v0): Jev 1.13 (TypeSafe) and Clef / Clef-flash
+"""Hosted decision models on the packed-contracts test (data/packed-contracts-v0): Jev 1.13 (TypeSafe) and Clef / Clef-flash
 (Cloudflare Workers AI), with the same question groups as Kev's scorer.
 
 - Yes/no (noul) answers come back as one probability of "yes"; a question counts as correct when that probability falls
@@ -22,7 +22,7 @@ from ..hosted import ROOT, Jev
 
 from ..complaints.clef import PRICE as CLEF_PRICE, Clef
 
-SUITE = ROOT / "data" / "dense-contracts-v0"
+SUITE = ROOT / "data" / "packed-contracts-v0"
 BLOCK = re.compile(r"===== Contract (\d+) of \d+: (.*?)( \(excerpt; the rest of this contract is not included\))? =====\n(.*?)\n===== End of contract \1 =====", re.S)
 PRICE = {"jev": 0.042 / 1e6, **CLEF_PRICE}
 

@@ -30,7 +30,7 @@ bench/              test side: one folder per test
     report.py           -> results/complaints.json
     report_long.py      -> results/complaints_long.json
     jev.py, clef.py     hosted references (evaluation only)
-  contracts/          the all-contracts test (CUAD, Kev's longdoc layout)
+  contracts/          the packed-contracts test (CUAD, Kev's longdoc layout)
     build.py, report.py (-> results/contracts.json), hosted.py (Jev and Clef, evaluation only)
   regression.py       Kev's own short-question suites, paired -> results/regression/<run>.json
   chunked_scorer.py   Kev's scorer with question branches chunked, for 128k+ (evaluation only)
