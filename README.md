@@ -6,7 +6,7 @@ Blog: [A decision model that teaches itself](https://www.larrisx.com/studio/self
 
 Model: [LarrisX/kev-0.8b-selfteach](https://huggingface.co/LarrisX/kev-0.8b-selfteach)
 
-Data: [LarrisX/packed-complaints](https://huggingface.co/datasets/LarrisX/packed-complaints)
+Data: [LarrisX/packed-complaints](https://huggingface.co/datasets/LarrisX/packed-complaints), [LarrisX/packed-contracts](https://huggingface.co/datasets/LarrisX/packed-contracts)
 
 ![The teacher reads one complaint alone; the student reads the same complaints packed and is trained to give the teacher's answer for each.](results/figures/4_method.svg)
 
