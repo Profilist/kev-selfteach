@@ -146,6 +146,11 @@ selfteach/          training side: one builder per training set, then targets an
   filter.py           drop packed records that don't fit the training context (Kev's environment)
   targets.py          teacher answers -> soft targets (Kev's environment, on the GPU box)
   report.py           self-taught analyses (agreement with the alone answer, edge errors) -> results/selfteach.json
+baseline/           the label-trained comparison (delta-v1): the same model trained on the real labels
+  build.py            training data: labelled complaint documents, buried records, synthetic evidence tasks, replay
+  synthetic.py        synthetic long-document evidence tasks with programmatic labels
+  fillers.py          their SQuAD and AG News filler
+  sports_filter.py    the "no sports" drop list for one filler pool -> nonsports_drop.json (Kev's environment)
 bench/              test side: one folder per test
   complaints/         the packed-complaints test
     build.py            suite, alone to 64k
@@ -183,6 +188,13 @@ Inputs expected under `data/`:
 | `data/cfpb/train-00010.parquet` | CFPB complaints, shard 10 of the Hub snapshot `davidheineman/consumer-finance-complaints-large` @ 44cfa17 (US government work) |
 | `data/cfpb/kev_documents_v1_train.jsonl` | Kev's documents-v1 train split, used only to keep it out of the test and the fresh items |
 | `data/contractnli/` | ContractNLI (CC BY 4.0), for the fresh-32k-ndas run |
+| `data/squad_train.parquet` | SQuAD train, `rajpurkar/squad` @ 7b6d24c (CC BY-SA 4.0), filler for the baseline's synthetic tasks |
+| `data/ag_news_train.parquet` | AG News train, `fancyzhx/ag_news` @ eb185aa, filler for the baseline's synthetic tasks |
+
+```bash
+curl -sL -o data/squad_train.parquet https://huggingface.co/datasets/rajpurkar/squad/resolve/7b6d24c440a36b6815f21b70d25016731768db1f/plain_text/train-00000-of-00001.parquet
+curl -sL -o data/ag_news_train.parquet https://huggingface.co/datasets/fancyzhx/ag_news/resolve/eb185aade064a813bc0b7f42de02595523103ca4/data/train-00000-of-00001.parquet
+```
 
 ## Reproduce
 
@@ -202,7 +214,15 @@ uv run python -m selfteach.build_longer                                         
 uv run python -m selfteach.build_longer --records 400 --asked 12 --min_len 32000 --max_len 125000 --seed 1 --out data/selfteach/fresh-128k
 data/kev/.venv/bin/python selfteach/filter.py data/selfteach/<run>/packed.jsonl        # every run; add 65536 / 131072 for fresh-64k / fresh-128k
 
+# the label-trained baseline (CPU): delta-v1 and its second seed, each filtered to the 32k training limit
+uv run python -m baseline.build                                                    # delta-v1
+uv run python -m baseline.build --seed 1 --out data/train-delta-v1-s1/train.jsonl  # delta-v1-s1
+data/kev/.venv/bin/python selfteach/filter.py data/train-delta-v1/train.jsonl      # and data/train-delta-v1-s1/train.jsonl
+
 # GPU (one H100): teacher answers, training, scoring -> infra/runpod/README.md
+# the baseline trains on its labels directly, with kev.train's settings from train.sh (no teacher targets):
+#   kev.train --data data/train-delta-v1/train.jsonl --init_from jaredpalmer/kev-0.8b --max_state 32768 --shared_prefix 1 \
+#     --checkpointing 1 --dtype bf16 --weights_dtype fp32 --lr 5e-5 --accum 4 --batch 1 --epochs 1 --seed 0   # --seed 1 for -s1
 
 # reports, from the score rows in data/kevbench/results/
 uv run python -m bench.complaints.report && uv run python -m bench.complaints.report_long
