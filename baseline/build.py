@@ -1,4 +1,4 @@
-"""Training data for the label-trained baseline (run delta-v1; with --seed 1, delta-v1-s1): Kev-0.8B 1.0 trained with
+"""Training data for the label-trained baseline (run labels-32k; with --seed 1, labels-32k-seed1): Kev-0.8B 1.0 trained with
 Kev's own trainer on long documents whose questions carry the real labels. It's the comparison for the self-taught runs.
 
 Mix (2,400 records; the long families' state lengths log-uniform in 1k-31k tokens):
@@ -12,9 +12,9 @@ Mix (2,400 records; the long families' state lengths log-uniform in 1k-31k token
 No complaint here is in the packed-complaints test (its pool was deduplicated against documents-v1 train), and no
 hosted-model output is used anywhere. Then drop records over the 32k training limit with selfteach/filter.py:
 
-    uv run python -m baseline.build                                                    # delta-v1
-    uv run python -m baseline.build --seed 1 --out data/train-delta-v1-s1/train.jsonl  # delta-v1-s1
-    data/kev/.venv/bin/python selfteach/filter.py data/train-delta-v1/train.jsonl
+    uv run python -m baseline.build                                                    # labels-32k
+    uv run python -m baseline.build --seed 1 --out data/baseline/labels-32k-seed1/train.jsonl  # labels-32k-seed1
+    data/kev/.venv/bin/python selfteach/filter.py data/baseline/labels-32k/train.jsonl
 """
 import argparse
 import json
@@ -126,7 +126,7 @@ def main(a):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--out", default="data/train-delta-v1/train.jsonl")
+    p.add_argument("--out", default="data/baseline/labels-32k/train.jsonl")
     p.add_argument("--records", type=int, default=2400)
     p.add_argument("--min_len", type=int, default=1000)
     p.add_argument("--max_len", type=int, default=31000)

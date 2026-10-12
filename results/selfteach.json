@@ -36,7 +36,7 @@
     "gap_closed": 0.0
    }
   },
-  "Kev-0.8B 1.0 + complaint-document delta (ours)": {
+  "Kev-0.8B 1.0 trained on labels, labels-32k (ours)": {
    "alone": {
     "questions": 1980,
     "acc": 0.805050505050505,
@@ -72,7 +72,7 @@
     "gap_closed": 0.9403430275913497
    }
   },
-  "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)": {
+  "Kev-0.8B 1.0 trained on labels, labels-32k-seed1 (ours)": {
    "alone": {
     "questions": 1980,
     "acc": 0.805050505050505,
@@ -224,7 +224,7 @@
     "gap_closed": 0.9589858314690529
    }
   },
-  "kev-items minus delta-v1": {
+  "kev-items minus labels-32k": {
    "alone": {
     "delta": -0.000505050505050505,
     "ci95": [
@@ -266,7 +266,7 @@
     "pairs": 1971
    }
   },
-  "fresh-32k minus delta-v1": {
+  "fresh-32k minus labels-32k": {
    "alone": {
     "delta": -0.0035353535353535356,
     "ci95": [
@@ -402,7 +402,7 @@
     "pairs": 1971
    }
   },
-  "fresh-32k-ndas minus delta-v1": {
+  "fresh-32k-ndas minus labels-32k": {
    "alone": {
     "delta": 0.0025252525252525255,
     "ci95": [
@@ -459,7 +459,7 @@
     "gap_closed": 0.0
    }
   },
-  "Kev-0.8B 1.0 + complaint-document delta (ours)": {
+  "Kev-0.8B 1.0 trained on labels, labels-32k (ours)": {
    "alone": {
     "questions": 457,
     "acc": 0.7045951859956237,
@@ -488,7 +488,7 @@
     "gap_closed": 0.7441860465116281
    }
   },
-  "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)": {
+  "Kev-0.8B 1.0 trained on labels, labels-32k-seed1 (ours)": {
    "alone": {
     "questions": 457,
     "acc": 0.7242888402625821,
@@ -633,7 +633,7 @@
     "gap_closed": 0.7906976744186051
    }
   },
-  "kev-items minus delta-v1": {
+  "kev-items minus labels-32k": {
    "alone": {
     "delta": 0.028446389496717725,
     "ci95": [
@@ -667,7 +667,7 @@
     "pairs": 421
    }
   },
-  "fresh-32k minus delta-v1": {
+  "fresh-32k minus labels-32k": {
    "alone": {
     "delta": 0.01312910284463895,
     "ci95": [
@@ -803,7 +803,7 @@
     "pairs": 421
    }
   },
-  "fresh-32k-ndas minus delta-v1": {
+  "fresh-32k-ndas minus labels-32k": {
    "alone": {
     "delta": 0.024070021881838075,
     "ci95": [
@@ -857,7 +857,7 @@
     "edge": 785
    }
   },
-  "Kev-0.8B 1.0 + complaint-document delta (ours)": {
+  "Kev-0.8B 1.0 trained on labels, labels-32k (ours)": {
    "16k": {
     "wrong": 444,
     "edge": 96
@@ -875,7 +875,7 @@
     "edge": 100
    }
   },
-  "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)": {
+  "Kev-0.8B 1.0 trained on labels, labels-32k-seed1 (ours)": {
    "16k": {
     "wrong": 453,
     "edge": 101

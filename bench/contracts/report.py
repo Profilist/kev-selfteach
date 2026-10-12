@@ -14,8 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 RES = ROOT / "data" / "kevbench"
 BUCKETS = ["alone", "16k", "32k", "64k"]
 KEV_READS = {"Kev-0.8B 1.0": RES / "results" / "kev-1.0--packed-contracts-v0" / "rows.json",
-             "Kev-0.8B 1.0 + complaint-document delta (ours)": RES / "results" / "delta-v1--packed-contracts-v0" / "rows.json",
-             "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)": RES / "results" / "delta-v1-s1--packed-contracts-v0" / "rows.json",
+             "Kev-0.8B 1.0 trained on labels, labels-32k (ours)": RES / "results" / "labels-32k--packed-contracts-v0" / "rows.json",
+             "Kev-0.8B 1.0 trained on labels, labels-32k-seed1 (ours)": RES / "results" / "labels-32k-seed1--packed-contracts-v0" / "rows.json",
              "Kev-0.8B 1.0 self-taught, kev-items (ours)": RES / "results" / "kev-items--packed-contracts-v0" / "rows.json",
              "Kev-0.8B 1.0 self-taught, fresh-32k (ours)": RES / "results" / "fresh-32k--packed-contracts-v0" / "rows.json",
              "Kev-0.8B 1.0 self-taught, fresh-32k-seed1 (ours)": RES / "results" / "fresh-32k-seed1--packed-contracts-v0" / "rows.json",

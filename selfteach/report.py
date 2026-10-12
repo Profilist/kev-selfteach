@@ -6,7 +6,7 @@ On the packed-complaints and packed-contracts tests, for each Kev-family model a
                model's training target, measured on test items no model trained on)
   = own alone  share matching the same model's own answer with the item alone
   gap closed   (acc - Kev 1.0's acc) / (Kev 1.0 alone - Kev 1.0's acc) at that length
-and the self-taught model minus delta-v1 (the labelled recipe) at each length, paired by question with a 95 % bootstrap
+and the self-taught model minus labels-32k (the labelled recipe) at each length, paired by question with a 95 % bootstrap
 interval over documents.
 
     uv run python -m selfteach.report
@@ -17,8 +17,8 @@ from collections import defaultdict
 from bench.contracts.report import KEV_READS as CONTRACT_READS, RES, ROOT, boot, kev_correct
 from bench.complaints.report import READS as COMPLAINT_READS, load_rows
 
-KEV, DELTA, SELF = "Kev-0.8B 1.0", "Kev-0.8B 1.0 + complaint-document delta (ours)", "Kev-0.8B 1.0 self-taught, kev-items (ours)"
-DELTA_S1 = "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)"
+KEV, DELTA, SELF = "Kev-0.8B 1.0", "Kev-0.8B 1.0 trained on labels, labels-32k (ours)", "Kev-0.8B 1.0 self-taught, kev-items (ours)"
+DELTA_S1 = "Kev-0.8B 1.0 trained on labels, labels-32k-seed1 (ours)"
 SELF_1B = "Kev-0.8B 1.0 self-taught, fresh-32k (ours)"
 SELF_1B_S1 = "Kev-0.8B 1.0 self-taught, fresh-32k-seed1 (ours)"
 SELF_1C = "Kev-0.8B 1.0 self-taught, fresh-32k-ndas (ours)"
@@ -94,9 +94,9 @@ def analyze(reads, buckets):
             if b != "alone" and kev_alone > kev_here:
                 e["gap_closed"] = (sum(rows[(b, i)][2] for i in same) / len(same) - kev_here) / (kev_alone - kev_here)
             res[model][b] = e
-    for a, b, name in ((SELF, DELTA, "kev-items minus delta-v1"), (SELF_1B, DELTA, "fresh-32k minus delta-v1"),
+    for a, b, name in ((SELF, DELTA, "kev-items minus labels-32k"), (SELF_1B, DELTA, "fresh-32k minus labels-32k"),
                        (SELF_1B, SELF, "fresh-32k minus kev-items"), (SELF_1B_S1, SELF_1B, "fresh-32k-seed1 minus fresh-32k"),
-                       (SELF_1C, SELF_1B, "fresh-32k-ndas minus fresh-32k"), (SELF_1C, DELTA, "fresh-32k-ndas minus delta-v1")):   # paired by question, clustered by document
+                       (SELF_1C, SELF_1B, "fresh-32k-ndas minus fresh-32k"), (SELF_1C, DELTA, "fresh-32k-ndas minus labels-32k")):   # paired by question, clustered by document
         if a not in reads or b not in reads:
             continue
         res[name] = {}

@@ -125,7 +125,7 @@
    ]
   }
  },
- "Kev-0.8B 1.0 + complaint-document delta (ours)": {
+ "Kev-0.8B 1.0 trained on labels, labels-32k (ours)": {
   "alone": {
    "questions": 1980,
    "acc": 0.805050505050505
@@ -251,7 +251,7 @@
    ]
   }
  },
- "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)": {
+ "Kev-0.8B 1.0 trained on labels, labels-32k-seed1 (ours)": {
   "alone": {
    "questions": 1980,
    "acc": 0.805050505050505

@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "data" / "kevbench" / "results"
 SUITES = ["decision-v7", "transfer-v4", "transfer-v9", "babilong-mini"]
-A, B = "kev-1.0", "delta-v1"
+A, B = "kev-1.0", "labels-32k"
 
 
 def correct(r):
@@ -62,7 +62,7 @@ def main(B=B, suites=SUITES):
 
 if __name__ == "__main__":
     import sys
-    if len(sys.argv) > 1:   # e.g. delta-v1-s1 decision-v7 transfer-v4
+    if len(sys.argv) > 1:   # e.g. labels-32k-seed1 decision-v7 transfer-v4
         main(sys.argv[1], sys.argv[2:] or SUITES)
     else:
         main()

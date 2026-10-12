@@ -146,7 +146,7 @@ selfteach/          training side: one builder per training set, then targets an
   filter.py           drop packed records that don't fit the training context (Kev's environment)
   targets.py          teacher answers -> soft targets (Kev's environment, on the GPU box)
   report.py           self-taught analyses (agreement with the alone answer, edge errors) -> results/selfteach.json
-baseline/           the label-trained comparison (delta-v1): the same model trained on the real labels
+baseline/           the label-trained comparison (labels-32k): the same model trained on the real labels
   build.py            training data: labelled complaint documents, buried records, synthetic evidence tasks, replay
   synthetic.py        synthetic long-document evidence tasks with programmatic labels
   fillers.py          their SQuAD and AG News filler
@@ -214,14 +214,14 @@ uv run python -m selfteach.build_longer                                         
 uv run python -m selfteach.build_longer --records 400 --asked 12 --min_len 32000 --max_len 125000 --seed 1 --out data/selfteach/fresh-128k
 data/kev/.venv/bin/python selfteach/filter.py data/selfteach/<run>/packed.jsonl        # every run; add 65536 / 131072 for fresh-64k / fresh-128k
 
-# the label-trained baseline (CPU): delta-v1 and its second seed, each filtered to the 32k training limit
-uv run python -m baseline.build                                                    # delta-v1
-uv run python -m baseline.build --seed 1 --out data/train-delta-v1-s1/train.jsonl  # delta-v1-s1
-data/kev/.venv/bin/python selfteach/filter.py data/train-delta-v1/train.jsonl      # and data/train-delta-v1-s1/train.jsonl
+# the label-trained baseline (CPU): labels-32k and its second seed, each filtered to the 32k training limit
+uv run python -m baseline.build                                                    # labels-32k
+uv run python -m baseline.build --seed 1 --out data/baseline/labels-32k-seed1/train.jsonl  # labels-32k-seed1
+data/kev/.venv/bin/python selfteach/filter.py data/baseline/labels-32k/train.jsonl      # and data/baseline/labels-32k-seed1/train.jsonl
 
 # GPU (one H100): teacher answers, training, scoring -> infra/runpod/README.md
 # the baseline trains on its labels directly, with kev.train's settings from train.sh (no teacher targets):
-#   kev.train --data data/train-delta-v1/train.jsonl --init_from jaredpalmer/kev-0.8b --max_state 32768 --shared_prefix 1 \
+#   kev.train --data data/baseline/labels-32k/train.jsonl --init_from jaredpalmer/kev-0.8b --max_state 32768 --shared_prefix 1 \
 #     --checkpointing 1 --dtype bf16 --weights_dtype fp32 --lr 5e-5 --accum 4 --batch 1 --epochs 1 --seed 0   # --seed 1 for -s1
 
 # reports, from the score rows in data/kevbench/results/

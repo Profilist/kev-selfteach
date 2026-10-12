@@ -17,8 +17,8 @@ RES = ROOT / "data" / "kevbench"
 READS = {  # model -> files holding its rows (predictions.jsonl lines carry "rows"; rows.json is a list)
     "Kev-0.8B 1.0": [RES / "partial2" / "packed-kev-1.0.predictions.jsonl", RES / "results" / "packed-kev-1.0-tail" / "predictions.jsonl",
                      RES / "results" / "packed-kev-1.0-tail2" / "rows.json"],
-    "Kev-0.8B 1.0 + complaint-document delta (ours)": [RES / "results" / "delta-v1--packed-complaints-v0-split" / "rows.json"],
-    "Kev-0.8B 1.0 + complaint-document delta, seed 1 (ours)": [RES / "results" / "delta-v1-s1--packed-complaints-v0-split" / "rows.json"],
+    "Kev-0.8B 1.0 trained on labels, labels-32k (ours)": [RES / "results" / "labels-32k--packed-complaints-v0-split" / "rows.json"],
+    "Kev-0.8B 1.0 trained on labels, labels-32k-seed1 (ours)": [RES / "results" / "labels-32k-seed1--packed-complaints-v0-split" / "rows.json"],
     "Kev-0.8B 1.0 self-taught, kev-items (ours)": [RES / "results" / "kev-items--packed-complaints-v0-split" / "rows.json"],
     "Kev-0.8B 1.0 self-taught, fresh-32k (ours)": [RES / "results" / "fresh-32k--packed-complaints-v0-split" / "rows.json"],
     "Kev-0.8B 1.0 self-taught, fresh-32k-seed1 (ours)": [RES / "results" / "fresh-32k-seed1--packed-complaints-v0-split-long" / "rows.json"],
