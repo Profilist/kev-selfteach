@@ -137,6 +137,7 @@ On an Apple M5 laptop (MLX, bf16), a 122k-token input with 509 questions took 84
 ## Codebase
 
 ```
+reproduce.sh        one entry point: data, gpu, hosted, reports (see Reproduce)
 selfteach/          training side: one builder per training set, then targets and analysis
   common.py           shared: items, packing into documents, Kev's records, tokenizer and context
   build_kev_items.py  kev-items: the first attempt (Kev's own training complaints), and the decision-records teacher suite
@@ -199,37 +200,18 @@ curl -sL -o data/ag_news_train.parquet https://huggingface.co/datasets/fancyzhx/
 ## Reproduce
 
 ```bash
-# the tests (CPU)
-uv run python -m bench.complaints.build --out data/packed-complaints-v0
-uv run python -m bench.complaints.split            # scoring copies: packed-complaints-v0-split{,-long}
-uv run python -m bench.complaints.build_long       # 128k / 256k: packed-complaints-v1{,-check}
-PYTHONPATH=data/kev data/kev/.venv/bin/python bench/contracts/build.py
-
-# training data (CPU): each run's items alone (for the teacher) and its packed documents, under data/selfteach/<run>/
-uv run python -m selfteach.build_kev_items                                            # kev-items, and the decision records every run reuses
-uv run python -m selfteach.build_fresh                                                # fresh-32k (headline)
-uv run python -m selfteach.build_fresh --seed 1 --out data/selfteach/fresh-32k-seed1  # its second seed
-PYTHONPATH=data/kev data/kev/.venv/bin/python selfteach/build_ndas.py                 # fresh-32k-ndas
-uv run python -m selfteach.build_longer                                               # fresh-64k
-uv run python -m selfteach.build_longer --records 400 --asked 12 --min_len 32000 --max_len 125000 --seed 1 --out data/selfteach/fresh-128k
-data/kev/.venv/bin/python selfteach/filter.py data/selfteach/<run>/packed.jsonl        # every run; add 65536 / 131072 for fresh-64k / fresh-128k
-
-# the label-trained baseline (CPU): labels-32k and its second seed, each filtered to the 32k training limit
-uv run python -m baseline.build                                                    # labels-32k
-uv run python -m baseline.build --seed 1 --out data/baseline/labels-32k-seed1/train.jsonl  # labels-32k-seed1
-data/kev/.venv/bin/python selfteach/filter.py data/baseline/labels-32k/train.jsonl      # and data/baseline/labels-32k-seed1/train.jsonl
-
-# GPU (one H100): teacher answers, training, scoring -> infra/runpod/README.md
-# the baseline trains on its labels directly, with kev.train's settings from train.sh (no teacher targets):
-#   kev.train --data data/baseline/labels-32k/train.jsonl --init_from jaredpalmer/kev-0.8b --max_state 32768 --shared_prefix 1 \
-#     --checkpointing 1 --dtype bf16 --weights_dtype fp32 --lr 5e-5 --accum 4 --batch 1 --epochs 1 --seed 0   # --seed 1 for -s1
-
-# reports, from the score rows in data/kevbench/results/
-uv run python -m bench.complaints.report && uv run python -m bench.complaints.report_long
-uv run python -m bench.contracts.report && uv run python -m selfteach.report
-uv run python -m bench.regression fresh-32k decision-v7 transfer-v4   # each run
-uv run python results/figures.py                                      # the figures above
+bash reproduce.sh data      # CPU: the tests and every run's training data, under data/
+bash reproduce.sh gpu       # GPU: teacher answers, training and scoring, for every run
+bash reproduce.sh hosted    # optional, paid: Jev and Clef on both tests (API keys in .env)
+bash reproduce.sh reports   # CPU: results/*.json and results/figures/, from the scores
 ```
+
+- `gpu` runs every model in order. Name steps to run fewer, for example `bash reproduce.sh gpu released teachers fresh-32k`;
+  the list is at the top of `reproduce.sh`.
+- One H100 runs everything except the two Kev-27B steps (`bigger-kevs`, `kev27b-teacher`), which need an H200 or similar.
+  Training takes about 7 hours in all; scoring takes longer. `DRY=1` prints the commands without running them.
+- Scores land in `data/kevbench/results/`, where `reports` reads them. To run on a rented pod, see
+  [infra/runpod/README.md](infra/runpod/README.md).
 
 ## Notes
 

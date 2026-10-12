@@ -9,6 +9,7 @@ Writes, under data/selfteach/kev-items/:
   alone/          an eval-only suite with every item alone, for the teacher (`kev.benchmark --suite`, raw logits)
   alone-records/  the decision records of alone/ with each question's src restored: the teacher suite for the records,
                   reused unchanged by every other run
+  alone-complaints/  the complaints of alone/ on their own: the teacher suite for this run's complaints
   packed.jsonl    2,400 training records: 45 % complaint documents, 25 % record documents (lengths log-uniform 1k-31k
                   tokens, up to 16 items asked each), 30 % items alone. Each question names its teacher item; targets
                   are attached on the GPU box by selfteach/targets.py.
@@ -80,6 +81,7 @@ def main(a):
     # ---- packed training records; each question points at its teacher item
     write_packed(rng, items, a, Path(a.out) / "packed.jsonl")
     alone_records(a.out)
+    alone_complaints(a.out)
 
 
 def alone_records(out):
@@ -107,6 +109,23 @@ def alone_records(out):
     json.dump(m, open(out_dir / "manifest.json", "w"), indent=1)
     print(f"records suite: {len(rec_lines)} records with src restored -> {out_dir}")
 
+
+
+def alone_complaints(out):
+    """The complaint half of the teacher suite, on its own: alone/ also holds the decision records without their `src`,
+    which kev.benchmark needs, so the teacher reads the complaints from here and the records from alone-records/.
+    Writes <out>/alone-complaints/."""
+    lines = [l for l in open(Path(out) / "alone" / "development.jsonl").read().splitlines()
+             if json.loads(l)["_meta"]["source"] == "selfteach_complaint"]
+    out_dir = Path(out) / "alone-complaints"
+    out_dir.mkdir(exist_ok=True)
+    (out_dir / "development.jsonl").write_text("".join(l + "\n" for l in lines))
+    m = json.load(open(Path(out) / "alone" / "manifest.json"))
+    m.update({"version": "kev-items-alone-complaints", "eval_only_sources": ["selfteach_complaint"],
+              "files": {"development.jsonl": {"sha256": hashlib.sha256((out_dir / "development.jsonl").read_bytes()).hexdigest(),
+                                              "records": len(lines), "questions": sum(len(json.loads(l)["questions"]) for l in lines)}}})
+    json.dump(m, open(out_dir / "manifest.json", "w"), indent=1)
+    print(f"complaints suite: {len(lines)} complaints -> {out_dir}")
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()

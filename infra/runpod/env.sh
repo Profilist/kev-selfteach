@@ -2,13 +2,14 @@
 set -uo pipefail
 REPO=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)   # this repository on the pod
 KEV=${KEV:-/workspace/kev}                                  # Kev checkout: .venv from setup.sh, suites under evals/
-OUT=${OUT:-/workspace/out}                                  # every teacher read, checkpoint and score lands here
+OUT=${OUT:-/workspace/out}                                  # every teacher read and checkpoint lands here
+RESULTS=${RESULTS:-$OUT}                                    # and every score (<model>--<suite>/rows.json)
 export HF_HOME=${HF_HOME:-/workspace/hf}
 export TRITON_CACHE_DIR=$HF_HOME/triton-cache TOKENIZERS_PARALLELISM=false PYTHONUNBUFFERED=1
 export KEV_TEMPERATURE=1.0   # raw logits: the teacher's full answer distribution, and unscaled scores
 RELEASE=jaredpalmer/kev-0.8b
 PY=$KEV/.venv/bin/python
-mkdir -p "$OUT"
+mkdir -p "$OUT" "$RESULTS"
 
 stage() { echo "[$(date -u +%H:%M:%S)] $*" | tee -a "$OUT/STATUS"; }
 

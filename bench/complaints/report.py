@@ -27,6 +27,10 @@ READS = {  # model -> files holding its rows (predictions.jsonl lines carry "row
                                                  RES / "results" / "packed-full-long-tail" / "predictions.jsonl",
                                                  RES / "results" / "packed-full-long-tail2" / "rows.json"],
 }
+# Released Kev's original read was split across cancelled runs; a fresh read (reproduce.sh gpu) stands in when those are absent.
+_FRESH_KEV = RES / "results" / "kev-1.0--packed-complaints-v0-split" / "rows.json"
+if not all(f.exists() for f in READS["Kev-0.8B 1.0"]) and _FRESH_KEV.exists():
+    READS["Kev-0.8B 1.0"] = [_FRESH_KEV]
 BUCKETS = ["alone", "8k", "16k", "32k", "64k"]
 JEV = ROOT / "data" / "hosted" / "jev_complaints_rows.jsonl"
 

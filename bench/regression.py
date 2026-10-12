@@ -22,11 +22,11 @@ def correct(r):
     return int(r["keys"][k] == r["label"] if isinstance(r["label"], str) else k == r["label"])
 
 
-def rows(model, suite):
+def rows_path(model, suite):
     path = RES / f"reg-{model}--{suite}" / "rows.json"
     if not path.exists():   # reads launched by infra/modal/kevbench.py (pipeline) are named <model>--<suite>
         path = RES / f"{model}--{suite}" / "rows.json"
-    return {(r["id"], r["question"]): r for r in json.load(open(path))}
+    return path
 
 
 def paired(a, b, keys, n=2000, seed=0):
@@ -42,9 +42,15 @@ def paired(a, b, keys, n=2000, seed=0):
     return sum(flat) / len(flat), means[int(0.025 * n)], means[int(0.975 * n) - 1]
 
 
+def rows(model, suite):
+    return {(r["id"], r["question"]): r for r in json.load(open(rows_path(model, suite)))}
+
+
 def main(B=B, suites=SUITES):
     out = {}
     for suite in suites:
+        if not (rows_path(A, suite).exists() and rows_path(B, suite).exists()):
+            continue   # e.g. transfer-v9 and babilong-mini, scored for labels-32k only
         a, b = rows(A, suite), rows(B, suite)
         keys = sorted(set(a) & set(b))
         d, lo, hi = paired(a, b, keys)

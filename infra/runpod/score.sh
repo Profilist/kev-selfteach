@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Score: one model on one or more suites -> $OUT/<as>--<suite>/rows.json (the name the reports read from
+# Score: one model on one or more suites -> $RESULTS/<as>--<suite>/rows.json (the name the reports read from
 # data/kevbench/results). Suites past Kev's 64k serving window (packed-complaints-v1*) go through bench/chunked_scorer.py,
 # everything else through kev.benchmark.
 #
@@ -11,7 +11,7 @@ run_=$(model "$1"); as=$(basename "$1"); shift
 cd "$KEV"
 failed=0
 for suite in "$@"; do
-  out="$OUT/$as--$(basename "$suite")"
+  out="$RESULTS/$as--$(basename "$suite")"
   case $suite in
     packed-complaints-v1*) scorer=("$PY" "$REPO/bench/chunked_scorer.py");;
     *) scorer=("$PY" -m kev.benchmark);;
