@@ -482,6 +482,75 @@
    }
   }
  },
+ "Kev-0.8B 1.0 taught by Kev-27B, fresh-32k-ndas-kev27b (ours)": {
+  "alone": {
+   "questions": 457,
+   "acc": 0.7439824945295405,
+   "by_kind": {
+    "category": 0.628,
+    "governing_law": 1.0,
+    "presence_found": 0.587,
+    "presence_not_found": 0.818
+   }
+  },
+  "16k": {
+   "questions": 457,
+   "acc": 0.7330415754923414,
+   "by_kind": {
+    "category": 0.628,
+    "governing_law": 1.0,
+    "presence_found": 0.545,
+    "presence_not_found": 0.818
+   },
+   "paired_vs_alone": {
+    "pairs": 457,
+    "delta": -0.010940919037199124,
+    "ci95": [
+     -0.034408602150537634,
+     0.011210762331838564
+    ],
+    "files": 37
+   }
+  },
+  "32k": {
+   "questions": 438,
+   "acc": 0.7100456621004566,
+   "by_kind": {
+    "category": 0.569,
+    "governing_law": 1.0,
+    "presence_found": 0.474,
+    "presence_not_found": 0.862
+   },
+   "paired_vs_alone": {
+    "pairs": 438,
+    "delta": -0.03424657534246575,
+    "ci95": [
+     -0.06378132118451026,
+     -0.006880733944954129
+    ],
+    "files": 17
+   }
+  },
+  "64k": {
+   "questions": 421,
+   "acc": 0.7315914489311164,
+   "by_kind": {
+    "category": 0.649,
+    "governing_law": 1.0,
+    "presence_found": 0.495,
+    "presence_not_found": 0.838
+   },
+   "paired_vs_alone": {
+    "pairs": 421,
+    "delta": -0.023752969121140142,
+    "ci95": [
+     -0.03546099290780142,
+     -0.011682242990654205
+    ],
+    "files": 8
+   }
+  }
+ },
  "Jev 1.13 (hosted)": {
   "alone": {
    "questions": 457,

@@ -19,7 +19,8 @@ KEV_READS = {"Kev-0.8B 1.0": RES / "results" / "kev-1.0--packed-contracts-v0" / 
              "Kev-0.8B 1.0 self-taught, kev-items (ours)": RES / "results" / "kev-items--packed-contracts-v0" / "rows.json",
              "Kev-0.8B 1.0 self-taught, fresh-32k (ours)": RES / "results" / "fresh-32k--packed-contracts-v0" / "rows.json",
              "Kev-0.8B 1.0 self-taught, fresh-32k-seed1 (ours)": RES / "results" / "fresh-32k-seed1--packed-contracts-v0" / "rows.json",
-             "Kev-0.8B 1.0 self-taught, fresh-32k-ndas (ours)": RES / "results" / "fresh-32k-ndas--packed-contracts-v0" / "rows.json"}
+             "Kev-0.8B 1.0 self-taught, fresh-32k-ndas (ours)": RES / "results" / "fresh-32k-ndas--packed-contracts-v0" / "rows.json",
+             "Kev-0.8B 1.0 taught by Kev-27B, fresh-32k-ndas-kev27b (ours)": RES / "results" / "fresh-32k-ndas-kev27b--packed-contracts-v0" / "rows.json"}
 HOSTED = {"Jev 1.13 (hosted)": ROOT / "data" / "hosted" / "jev_contracts_rows.jsonl",
           "Clef-flash 9B (Workers AI)": ROOT / "data" / "hosted" / "clef_contracts_rows_clef-flash.jsonl",
           "Clef 27B (Workers AI)": ROOT / "data" / "hosted" / "clef_contracts_rows_clef.jsonl"}

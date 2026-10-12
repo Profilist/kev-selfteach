@@ -1,0 +1,35 @@
+{
+ "teacher": "jaredpalmer/kev-27b (Kev-27B 1.0) reading each item alone, raw logits (KEV_TEMPERATURE=1.0)",
+ "documents": "fresh-32k-ndas's packed.jsonl, unchanged (2,387 records); only the targets differ",
+ "teacher_on_training_questions": {
+  "fresh complaints": 0.845,
+  "contractnli statements": 0.829,
+  "decision records": 0.886,
+  "kev-0.8b teacher, same questions": {
+   "fresh complaints": 0.808,
+   "contractnli statements": 0.491,
+   "decision records": 0.919
+  }
+ },
+ "training_args": {
+  "lr": 5e-05,
+  "accum": 4,
+  "batch": 1,
+  "epochs": 1,
+  "seed": 0,
+  "max_state": 32768,
+  "shared_prefix": 1,
+  "init_from": "jaredpalmer/kev-0.8b",
+  "checkpointing": 1,
+  "dtype": "bf16",
+  "weights_dtype": "fp32"
+ },
+ "hardware": "1x H200 (RunPod secure cloud)",
+ "metrics": {
+  "wall_seconds": 2420.6017611026764,
+  "records_seen": 2387,
+  "optimizer_steps": 597,
+  "forward_tokens": 20474353,
+  "peak_device_bytes": 55179878912
+ }
+}

@@ -27,6 +27,10 @@ MODELS = {  # name -> (rows dir in data/kevbench/results, key in bench.complaint
     "Self-taught, fresh-32k": ("fresh-32k--packed-complaints-v1", "Kev-0.8B 1.0 self-taught, fresh-32k (ours)"),
     "Self-taught, fresh-64k": ("fresh-64k--packed-complaints-v1", None),
     "Self-taught, fresh-128k": ("fresh-128k--packed-complaints-v1", None),
+    "Kev-4B 1.0": ("kev-4b--packed-complaints-v1-64k", None),          # released bigger Kevs, alone to 64k only
+    "Kev-9B 1.0": ("kev-9b--packed-complaints-v1-64k", None),
+    "Kev-27B 1.0": ("kev-27b--packed-complaints-v1-64k", None),
+    "Self-taught + NDAs, Kev-27B teacher": ("fresh-32k-ndas-kev27b--packed-complaints-v1-64k", None),
 }
 
 

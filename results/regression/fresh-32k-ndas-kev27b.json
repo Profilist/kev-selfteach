@@ -1,0 +1,201 @@
+{
+ "decision-v7": {
+  "questions": 1468,
+  "kev-1.0": 0.8337874659400545,
+  "fresh-32k-ndas-kev27b": 0.840599455040872,
+  "delta": 0.006811989100817439,
+  "ci95": [
+   -0.004768392370572207,
+   0.018392370572207085
+  ],
+  "by_task": {
+   "agnews": {
+    "kev-1.0": 0.8620689655172413,
+    "fresh-32k-ndas-kev27b": 0.8706896551724138,
+    "n": 116
+   },
+   "agnews_yn": {
+    "kev-1.0": 0.9402173913043478,
+    "fresh-32k-ndas-kev27b": 0.9347826086956522,
+    "n": 184
+   },
+   "amazon": {
+    "kev-1.0": 0.575,
+    "fresh-32k-ndas-kev27b": 0.575,
+    "n": 80
+   },
+   "banking77": {
+    "kev-1.0": 0.8275862068965517,
+    "fresh-32k-ndas-kev27b": 0.8362068965517241,
+    "n": 116
+   },
+   "boolq": {
+    "kev-1.0": 0.725,
+    "fresh-32k-ndas-kev27b": 0.7375,
+    "n": 80
+   },
+   "composition_atom": {
+    "kev-1.0": 1.0,
+    "fresh-32k-ndas-kev27b": 1.0,
+    "n": 16
+   },
+   "composition_conditional": {
+    "kev-1.0": 0.5625,
+    "fresh-32k-ndas-kev27b": 0.5625,
+    "n": 16
+   },
+   "composition_conjunction": {
+    "kev-1.0": 0.9375,
+    "fresh-32k-ndas-kev27b": 0.9375,
+    "n": 16
+   },
+   "composition_disjunction": {
+    "kev-1.0": 0.8125,
+    "fresh-32k-ndas-kev27b": 0.75,
+    "n": 16
+   },
+   "composition_exception": {
+    "kev-1.0": 0.9375,
+    "fresh-32k-ndas-kev27b": 0.75,
+    "n": 16
+   },
+   "composition_negation": {
+    "kev-1.0": 0.8125,
+    "fresh-32k-ndas-kev27b": 0.75,
+    "n": 16
+   },
+   "composition_nested_and": {
+    "kev-1.0": 0.8125,
+    "fresh-32k-ndas-kev27b": 0.75,
+    "n": 16
+   },
+   "composition_nested_or": {
+    "kev-1.0": 1.0,
+    "fresh-32k-ndas-kev27b": 0.9375,
+    "n": 16
+   },
+   "contrastive_age_eligibility": {
+    "kev-1.0": 1.0,
+    "fresh-32k-ndas-kev27b": 1.0,
+    "n": 24
+   },
+   "contrastive_quantity_limit": {
+    "kev-1.0": 0.9583333333333334,
+    "fresh-32k-ndas-kev27b": 1.0,
+    "n": 24
+   },
+   "contrastive_return_window": {
+    "kev-1.0": 0.7916666666666666,
+    "fresh-32k-ndas-kev27b": 0.8333333333333334,
+    "n": 24
+   },
+   "contrastive_spend_threshold": {
+    "kev-1.0": 1.0,
+    "fresh-32k-ndas-kev27b": 1.0,
+    "n": 24
+   },
+   "dbpedia14": {
+    "kev-1.0": 0.9482758620689655,
+    "fresh-32k-ndas-kev27b": 0.9568965517241379,
+    "n": 116
+   },
+   "imdb": {
+    "kev-1.0": 0.8875,
+    "fresh-32k-ndas-kev27b": 0.9,
+    "n": 80
+   },
+   "mnli": {
+    "kev-1.0": 0.7844827586206896,
+    "fresh-32k-ndas-kev27b": 0.8275862068965517,
+    "n": 116
+   },
+   "sst5": {
+    "kev-1.0": 0.575,
+    "fresh-32k-ndas-kev27b": 0.6,
+    "n": 80
+   },
+   "trec": {
+    "kev-1.0": 0.9568965517241379,
+    "fresh-32k-ndas-kev27b": 0.9655172413793104,
+    "n": 116
+   },
+   "yelp": {
+    "kev-1.0": 0.6375,
+    "fresh-32k-ndas-kev27b": 0.6375,
+    "n": 80
+   },
+   "yelp_yn": {
+    "kev-1.0": 0.8875,
+    "fresh-32k-ndas-kev27b": 0.925,
+    "n": 80
+   }
+  }
+ },
+ "transfer-v4": {
+  "questions": 764,
+  "kev-1.0": 0.6531413612565445,
+  "fresh-32k-ndas-kev27b": 0.637434554973822,
+  "delta": -0.015706806282722512,
+  "ci95": [
+   -0.03926701570680628,
+   0.007853403141361256
+  ],
+  "by_task": {
+   "composition_held_and_or": {
+    "kev-1.0": 0.65625,
+    "fresh-32k-ndas-kev27b": 0.75,
+    "n": 32
+   },
+   "composition_held_conditional": {
+    "kev-1.0": 0.65625,
+    "fresh-32k-ndas-kev27b": 0.65625,
+    "n": 32
+   },
+   "composition_held_or_not": {
+    "kev-1.0": 0.5625,
+    "fresh-32k-ndas-kev27b": 0.46875,
+    "n": 32
+   },
+   "contrastive_authorization": {
+    "kev-1.0": 0.95,
+    "fresh-32k-ndas-kev27b": 0.975,
+    "n": 40
+   },
+   "contrastive_deadline": {
+    "kev-1.0": 0.35,
+    "fresh-32k-ndas-kev27b": 0.425,
+    "n": 40
+   },
+   "emotion": {
+    "kev-1.0": 0.5344827586206896,
+    "fresh-32k-ndas-kev27b": 0.49137931034482757,
+    "n": 116
+   },
+   "mmlu": {
+    "kev-1.0": 0.4827586206896552,
+    "fresh-32k-ndas-kev27b": 0.4224137931034483,
+    "n": 116
+   },
+   "paws": {
+    "kev-1.0": 0.6,
+    "fresh-32k-ndas-kev27b": 0.475,
+    "n": 80
+   },
+   "qnli": {
+    "kev-1.0": 0.8125,
+    "fresh-32k-ndas-kev27b": 0.8125,
+    "n": 80
+   },
+   "sciq": {
+    "kev-1.0": 0.8793103448275862,
+    "fresh-32k-ndas-kev27b": 0.9224137931034483,
+    "n": 116
+   },
+   "tweet_offensive": {
+    "kev-1.0": 0.675,
+    "fresh-32k-ndas-kev27b": 0.6875,
+    "n": 80
+   }
+  }
+ }
+}

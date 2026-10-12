@@ -20,7 +20,7 @@ Everything that needs a GPU is three steps, each run inside Kev's environment on
                                                                           fresh-32k-seed1, fresh-32k-ndas
   evals/kev-items-alone-records/    ← data/selfteach/kev-items/alone-records   the decision records, read once for every run
   evals/packed-complaints-v0-split/  ← data/packed-complaints-v0-split    (python -m bench.complaints.split; also -split-long)
-  evals/packed-complaints-v1/        ← data/packed-complaints-v1          (and -v1-check)
+  evals/packed-complaints-v1/        ← data/packed-complaints-v1          (and -v1-check, -v1-64k)
   evals/packed-contracts-v0/         ← data/packed-contracts-v0
 /workspace/kev-selfteach/    this repository, plus data/selfteach/<run>/packed.jsonl (filtered locally with selfteach/filter.py)
 /workspace/out/              results; copy <model>--<suite>/ back to data/kevbench/results/
@@ -61,6 +61,17 @@ bash $R/score.sh jaredpalmer/kev-0.8b --as kev-1.0 packed-complaints-v1
 bash $R/score.sh fresh-32k --as check packed-complaints-v1-check
 /workspace/kev/.venv/bin/python /workspace/kev-selfteach/bench/chunked_check.py \
   /workspace/out/check--packed-complaints-v1-check/rows.json /workspace/kev/evals/packed-complaints-v1-check/reference_rows_fresh-32k.json
+
+# Released bigger Kevs on the packed-complaints test, alone to 64k (Kev-27B needs an H200 or similar).
+for m in 4b 9b 27b; do bash $R/score.sh jaredpalmer/kev-$m --as kev-$m packed-complaints-v1-64k; done
+
+# Kev-27B as the teacher (fresh-32k-ndas-kev27b): same documents as fresh-32k-ndas, only the targets change.
+T=jaredpalmer/kev-27b
+bash $R/teacher.sh fresh-32k-alone t27-fresh --model $T
+bash $R/teacher.sh kev-items-alone-records t27-records --model $T
+bash $R/teacher.sh fresh-32k-ndas-alone t27-ndas --model $T
+bash $R/train.sh fresh-32k-ndas-kev27b --packed $D/fresh-32k-ndas/packed.jsonl --teacher t27-fresh,t27-records,t27-ndas
+bash $R/score.sh fresh-32k-ndas-kev27b packed-complaints-v1-64k packed-contracts-v0 v7/decision-v7 v4/transfer-v4
 
 # First attempt (kev-items), on items from Kev's own training sets: its teacher had memorized them, so it isn't label-free.
 bash $R/teacher.sh kev-items-alone teacher-kev-items
