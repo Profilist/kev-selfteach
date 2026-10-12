@@ -1,0 +1,402 @@
+{
+ "1_hero": {
+  "x_complaints_per_read": [
+   1,
+   123,
+   246,
+   490,
+   990
+  ],
+  "x_length": [
+   "alone",
+   "32k",
+   "64k",
+   "128k",
+   "256k"
+  ],
+  "self_taught": [
+   0.8035353535353535,
+   0.7980622131565528,
+   0.791476407914764,
+   0.7881935647327084,
+   0.748416518875095
+  ],
+  "released_kev": [
+   0.803030303030303,
+   0.14278429372768994,
+   0.12125824454591577,
+   0.11831770965290093,
+   0.11173042817329618
+  ],
+  "jev_to_32k_window": [
+   0.8404040404040404,
+   0.8347781744008159
+  ],
+  "clef27b_to_64k_window": [
+   0.8111111111111111,
+   0.8001019887812341,
+   0.7990867579908676
+  ],
+  "chance": 0.1111111111111111
+ },
+ "2_test": {
+  "document": "packed-complaints-v1/64k/0007",
+  "complaints": 241,
+  "state_tokens_approx": 64000,
+  "question": "Which kind of financial product is complaint 6292578 about?",
+  "target_position": 208,
+  "first_complaint_label": "mortgage"
+ },
+ "3_example": {
+  "complaint": "6292578",
+  "correct": "Checking or savings",
+  "options": [
+   "Credit report",
+   "Debt collection",
+   "Mortgage",
+   "Checking or savings",
+   "Credit card",
+   "Student loan",
+   "Money transfer",
+   "Vehicle loan",
+   "Personal loan"
+  ],
+  "panels": {
+   "Alone": [
+    0.0,
+    0.0,
+    0.0,
+    0.994,
+    0.006,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "Packed": [
+    0.001,
+    0.001,
+    0.816,
+    0.032,
+    0.017,
+    0.002,
+    0.064,
+    0.029,
+    0.038
+   ],
+   "Packed, self-taught": [
+    0.0,
+    0.0,
+    0.0,
+    0.998,
+    0.001,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  }
+ },
+ "4_method": {
+  "teacher_examples": [
+   [
+    0.0,
+    0.0,
+    0.02,
+    0.96,
+    0.01,
+    0.0,
+    0.0,
+    0.0,
+    0.01
+   ],
+   [
+    0.9,
+    0.03,
+    0.02,
+    0.0,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    0.02
+   ],
+   [
+    0.05,
+    0.46,
+    0.06,
+    0.03,
+    0.1,
+    0.02,
+    0.22,
+    0.02,
+    0.04
+   ],
+   [
+    0.0,
+    0.0,
+    0.02,
+    0.04,
+    0.88,
+    0.0,
+    0.04,
+    0.0,
+    0.02
+   ],
+   [
+    0.02,
+    0.03,
+    0.0,
+    0.01,
+    0.02,
+    0.9,
+    0.0,
+    0.01,
+    0.01
+   ],
+   [
+    0.02,
+    0.06,
+    0.04,
+    0.14,
+    0.05,
+    0.01,
+    0.44,
+    0.03,
+    0.21
+   ]
+  ],
+  "packed_guess": [
+   [
+    0.03,
+    0.04,
+    0.7,
+    0.06,
+    0.03,
+    0.02,
+    0.06,
+    0.03,
+    0.03
+   ],
+   [
+    0.12,
+    0.1,
+    0.22,
+    0.08,
+    0.14,
+    0.06,
+    0.12,
+    0.07,
+    0.09
+   ],
+   [
+    0.05,
+    0.08,
+    0.55,
+    0.1,
+    0.04,
+    0.03,
+    0.08,
+    0.03,
+    0.04
+   ],
+   [
+    0.08,
+    0.15,
+    0.18,
+    0.12,
+    0.1,
+    0.09,
+    0.11,
+    0.08,
+    0.09
+   ],
+   [
+    0.04,
+    0.05,
+    0.62,
+    0.05,
+    0.06,
+    0.04,
+    0.06,
+    0.04,
+    0.04
+   ],
+   [
+    0.1,
+    0.13,
+    0.2,
+    0.11,
+    0.07,
+    0.1,
+    0.12,
+    0.08,
+    0.09
+   ]
+  ],
+  "illustrative": true,
+  "training": {
+   "steps": 598,
+   "minutes": 46,
+   "gpu": "one H100 NVL"
+  }
+ },
+ "5_at_64k": {
+  "note": "accuracy with ~246 complaints per read; 'alone' = the same model reading each complaint by itself; Kev-0.8B rows of ours are the mean of two seeds; *Jev reads 64k as two 32k halves",
+  "rows": [
+   {
+    "model": "Kev-27B",
+    "packed_64k": 0.854388635210553,
+    "alone": 0.8565656565656565
+   },
+   {
+    "model": "Jev 1.13*",
+    "packed_64k": 0.8310502283105022,
+    "alone": 0.8404040404040404
+   },
+   {
+    "model": "Clef 27B",
+    "packed_64k": 0.7990867579908676,
+    "alone": 0.8111111111111111
+   },
+   {
+    "model": "Self-taught Kev-0.8B",
+    "packed_64k": 0.7810755961440893,
+    "alone": 0.8027777777777778
+   },
+   {
+    "model": "Kev-0.8B w/ labels",
+    "packed_64k": 0.7516489091831557,
+    "alone": 0.805050505050505
+   },
+   {
+    "model": "Clef-flash 9B",
+    "packed_64k": 0.5900558092338914,
+    "alone": 0.795959595959596
+   },
+   {
+    "model": "Kev-9B",
+    "packed_64k": 0.5134449518011162,
+    "alone": 0.848989898989899
+   },
+   {
+    "model": "Kev-0.8B",
+    "packed_64k": 0.121765601217656,
+    "alone": 0.803030303030303
+   }
+  ]
+ },
+ "9_sizes": {
+  "note": "accuracy with ~246 complaints per read (64k) and reading each complaint alone; released Kev-4B, 9B and 27B scored 2026-10-09 with the chunked scorer; Kev-27B is the only one trained on long states",
+  "rows": [
+   {
+    "model": "Kev-0.8B",
+    "packed_64k": 0.12125824454591577,
+    "alone": 0.803030303030303
+   },
+   {
+    "model": "Kev-4B",
+    "packed_64k": 0.4200913242009132,
+    "alone": 0.8409090909090909
+   },
+   {
+    "model": "Kev-9B",
+    "packed_64k": 0.5134449518011162,
+    "alone": 0.848989898989899
+   },
+   {
+    "model": "Kev-27B",
+    "packed_64k": 0.854388635210553,
+    "alone": 0.8565656565656565
+   }
+  ]
+ },
+ "6_lookup": {
+  "length": "64k (~246 complaints per read)",
+  "same_answer_as_alone": {
+   "Kev-0.8B": 0.1278538812785388,
+   "Trained on labels": 0.8406900050735666,
+   "Self-taught": 0.89142567224759
+  },
+  "wrong_answers_naming_first_or_last_complaint": {
+   "Kev-0.8B": 0.5580589254766031,
+   "Trained on labels": 0.23595505617977527,
+   "Self-taught": 0.22827346465816917
+  }
+ },
+ "7_rounds": {
+  "x_length": [
+   "alone",
+   "32k",
+   "64k",
+   "128k",
+   "256k"
+  ],
+  "x_complaints_per_read": [
+   1,
+   123,
+   246,
+   490,
+   990
+  ],
+  "series": {
+   "Kev-0.8B": {
+    "acc": [
+     0.803030303030303,
+     0.14278429372768994,
+     0.12125824454591577,
+     0.11831770965290093,
+     0.11173042817329618
+    ],
+    "longest_training_doc": null
+   },
+   "Round 1: trained to 32k": {
+    "acc": [
+     0.8015151515151515,
+     0.7893931667516573,
+     0.7838660578386606,
+     0.7109196858373448,
+     0.46997719787180137
+    ],
+    "longest_training_doc": "32k"
+   },
+   "Round 2: trained to 64k": {
+    "acc": [
+     0.802020202020202,
+     0.7944926058133606,
+     0.7940131912734653,
+     0.7828730681530276,
+     0.6713959969597162
+    ],
+    "longest_training_doc": "64k"
+   },
+   "Round 3: trained to 128k": {
+    "acc": [
+     0.8035353535353535,
+     0.7980622131565528,
+     0.791476407914764,
+     0.7881935647327084,
+     0.748416518875095
+    ],
+    "longest_training_doc": "128k"
+   }
+  }
+ },
+ "8_ceiling": {
+  "length": "64k",
+  "groups": [
+   {
+    "group": "Complaints (~246 per 64k input)",
+    "released_alone": 0.803030303030303,
+    "released_packed": 0.121765601217656,
+    "self_taught_packed": 0.7810755961440893
+   },
+   {
+    "group": "Contracts (~14 per 64k input)",
+    "released_alone": 0.7089715536105032,
+    "released_packed": 0.6199524940617577,
+    "self_taught_packed": 0.667458432304038
+   }
+  ]
+ }
+}
