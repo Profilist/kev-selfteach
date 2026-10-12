@@ -4,7 +4,8 @@ A 0.8B decision model that teaches itself to read about 1,000 documents at once,
 
 Write-up: [A decision model that teaches itself](https://www.larrisx.com/studio/self-taught-kev) ·
 Model: [LarrisX/kev-0.8b-selfteach](https://huggingface.co/LarrisX/kev-0.8b-selfteach) ·
-Test: [LarrisX/packed-complaints](https://huggingface.co/datasets/LarrisX/packed-complaints)
+Test: [LarrisX/packed-complaints](https://huggingface.co/datasets/LarrisX/packed-complaints) ·
+[Use the model](#use-the-model)
 
 ![Accuracy against context window up to 256k tokens: released Kev-0.8B falls from 80% to 11%; the self-taught model stays near 80% and ends at 75% at 256k.](results/figures/1_hero.png)
 
@@ -90,6 +91,84 @@ on every question where both run. Training past 64k lifts Kev's 64k training cap
   3 points (73%).
 - **Locate-and-read only.** Each question is about one item; the tests don't ask for reasoning across items.
 - **Seeds.** The 64k result is two training runs; rounds 2–3 and the Kev-27B-teacher run were trained once.
+
+## Use the model
+
+The model is a Kev checkpoint, so Kev's own server runs it: a TypeSafe-compatible API on your machine (CUDA, or MLX on
+Apple Silicon). Tested with Kev at commit `fe64b12`:
+
+```bash
+git clone https://github.com/jaredpalmer/kev.git && cd kev && git checkout fe64b12
+uv sync --extra serve
+uv run --extra serve python -m kev.serve --run LarrisX/kev-0.8b-selfteach --port 8009
+```
+
+Put every item in one input, give each an ID, and ask about each item by its ID:
+
+```bash
+curl -s localhost:8009/v1/systemone -H 'content-type: application/json' -d '{
+  "model": "kev-latest",
+  "state": "Ticket T-101:\nMy mortgage servicer added a late fee even though my payment cleared on time.\n\nTicket T-102:\nA collector keeps calling about a medical debt I already paid off.\n\nTicket T-103:\nI sent money to my sister through an app and it never arrived.",
+  "questions": {
+    "T-101": {"type": "choice", "instructions": "Which kind of financial product is ticket T-101 about?",
+              "criteria": {"mortgage": "A mortgage or home loan", "debt_collection": "Collection of a debt",
+                           "money_transfer": "A money transfer or money service", "card": "A credit card or prepaid card"}},
+    "T-102": {"type": "choice", "instructions": "Which kind of financial product is ticket T-102 about?",
+              "criteria": {"mortgage": "A mortgage or home loan", "debt_collection": "Collection of a debt",
+                           "money_transfer": "A money transfer or money service", "card": "A credit card or prepaid card"}},
+    "T-103": {"type": "noul", "instructions": "Did the money in ticket T-103 reach the recipient?"}
+  }}'
+```
+
+```json
+{
+  "model": "kev-latest",
+  "answers": {
+    "T-101": {"type": "choice", "choice": "mortgage", "confidence": 0.9997, "probabilities": {"mortgage": 0.9997, "...": "..."}},
+    "T-102": {"type": "choice", "choice": "debt_collection", "confidence": 0.9938, "probabilities": {"debt_collection": 0.9954, "...": "..."}},
+    "T-103": {"type": "noul", "noul": 0.0005}
+  },
+  "usage": {"input_tokens": 206, "output_tokens": 190},
+  "latency_ms": 64.4
+}
+```
+
+From Python, the TypeSafe SDK (installed by `uv sync --extra serve`) talks to the same server:
+
+```python
+from typesafe_sdk import Choice, TypeSafeClient
+
+client = TypeSafeClient(api_key="local", base_url="http://127.0.0.1:8009", model="kev-latest")
+products = {"mortgage": "A mortgage or home loan", "debt_collection": "Collection of a debt",
+            "money_transfer": "A money transfer or money service", "card": "A credit card or prepaid card"}
+tickets = {"T-101": "My mortgage servicer added a late fee even though my payment cleared on time.",
+           "T-102": "A collector keeps calling about a medical debt I already paid off.",
+           "T-103": "I sent money to my sister through an app and it never arrived."}
+response = client.system_one(
+    state="\n\n".join(f"Ticket {k}:\n{v}" for k, v in tickets.items()),
+    questions={k: Choice(instructions=f"Which kind of financial product is ticket {k} about?", criteria=products)
+               for k in tickets},
+)
+print({k: response.choices[k].choice for k in tickets})   # {'T-101': 'mortgage', 'T-102': 'debt_collection', 'T-103': 'money_transfer'}
+```
+
+**Past 64k.** Kev's server refuses inputs over 64k tokens. To read longer ones, raise that limit in your Kev checkout
+before starting the server:
+
+```bash
+sed -i.bak 's/^SERVE_MAX_STATE = 65536$/SERVE_MAX_STATE = 262144/' kev/model.py
+```
+
+On an Apple M5 laptop (MLX, bf16), a 122k-token input with 509 questions took 84 seconds and a 244k-token input with
+997 questions took 6 minutes. Their answers matched the GPU scores in this repo on 508/509 and 985/997 questions.
+
+**Tips**
+- Label each item with an ID and name that ID in its question, as above. Training used headers like `Complaint 1234:`,
+  `Complaint #1234`, `[Complaint 1234]` and `Case 1234:`.
+- Every question is answered on its own, so one input with 500 questions gives the same answers as 500 separate ones,
+  at a fraction of the cost.
+- The training complaints all used one product question; other questions rely on Kev's general skills, which
+  self-teaching kept (see Kev's suites above). Check accuracy on your own items before relying on it.
 
 ## Layout
 
