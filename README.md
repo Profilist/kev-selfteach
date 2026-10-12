@@ -1,68 +1,46 @@
-# kev-selfteach
+# A decision model that teaches itself
 
-A 0.8B decision model that teaches itself to read about 1,000 documents at once, with no labels.
+Kev-0.8B teaches itself to read about 1,000 documents (256k tokens) at once, with no labels.
 
-Write-up: [A decision model that teaches itself](https://www.larrisx.com/studio/self-taught-kev) ·
-Model: [LarrisX/kev-0.8b-selfteach](https://huggingface.co/LarrisX/kev-0.8b-selfteach) ·
-Test: [LarrisX/packed-complaints](https://huggingface.co/datasets/LarrisX/packed-complaints) ·
-[Use the model](#use-the-model)
+Blog: [A decision model that teaches itself](https://www.larrisx.com/studio/self-taught-kev)
 
-![Accuracy against context window up to 256k tokens: released Kev-0.8B falls from 80% to 11%; the self-taught model stays near 80% and ends at 75% at 256k.](results/figures/1_hero.png)
+Model: [LarrisX/kev-0.8b-selfteach](https://huggingface.co/LarrisX/kev-0.8b-selfteach)
 
-*Accuracy as more complaints are packed into one read, past the 64k window of today's decision models.*
+Data: [LarrisX/packed-complaints](https://huggingface.co/datasets/LarrisX/packed-complaints)
+
+![The teacher reads one complaint alone; the student reads the same complaints packed and is trained to give the teacher's answer for each.](results/figures/4_method.svg)
 
 Decision models such as [Kev](https://github.com/jaredpalmer/kev), TypeSafe's Jev and Cloudflare's Clef read an input
 once and answer typed questions about it, with a probability for each option. Every question branches off that single
 read, so asking about every item in a long input costs a small fraction of asking about each one separately.
 
-Asked which product each of 1,980 CFPB consumer complaints is about (nine options), Kev-0.8B gets **80%** right one
-complaint at a time. Pack 246 of them into one 64k-token input and it drops to **12%**, barely above chance (11%). After
-self-teaching it scores **78%** at 64k, **79%** with ~490 complaints (128k tokens) and **75%** with ~990 (256k).
+Asked which product each of 1,980 consumer complaints is about (nine options), Kev-0.8B gets **80%** right one
+complaint at a time. Pack 246 of them into one 64k token input and it drops to **12%**, barely above random. After
+self-teaching, it scores **78%** at 64k, and holds up to context lengths that most decision models today don't support with **75%** with 256k.
 
-## Why it breaks
-
-![Kev-0.8B's answer for one complaint: 99% checking account alone, 82% mortgage when packed (the first complaint's product), 100% checking account after self-teaching.](results/figures/3_example.png)
-
-The model knows the answers; it can't find the right complaint. Packed at 64k, Kev-0.8B gives the answer it gives alone
-only 13% of the time, and 56% of its wrong answers name the product of the first or last complaint in the input.
-
-Bigger Kevs fall too: Kev-4B scores 42% at 64k and Kev-9B 51%. Only Kev-27B, the one Kev trained on long documents,
-holds (85%).
-
-![Every released Kev at 64k against its read-alone score: Kev-0.8B 12% (80% alone), Kev-4B 42% (84%), Kev-9B 51% (85%), Kev-27B 85% (86%).](results/figures/9_sizes.png)
+![Accuracy against context window up to 256k tokens: released Kev-0.8B falls from 80% to 11%; the self-taught model stays near 80% and ends at 75% at 256k.](results/figures/1_hero.png)
 
 ## How it works
 
-![The teacher reads one complaint alone; the student reads the same complaints packed and is trained to give the teacher's answer for each.](results/figures/4_method.svg)
+1. **Teacher.** Kev-0.8B reads each complaint by itself and gives a probability for each option.
+2. **Student.** The same model reads that complaint packed among up to 140 others and is trained to give the same probabilities.
 
-1. **Teacher.** Released Kev-0.8B reads each training complaint by itself and gives a probability for each option.
-2. **Student.** The same model reads that complaint packed among up to ~120 others and is trained (soft targets, a LoRA
-   on Kev's own trainer) to give the same probabilities.
+I used [5,219 complaints](https://huggingface.co/datasets/davidheineman/consumer-finance-complaints-large) the model had never seen, with about a third of training examples left alone to ensure the model is able to still answer short inputs accurately. Similarly, other kinds of questions from Kev's public training data were also mixed in, also answered by the teacher, so it stays a general decision model.
 
-- **Fresh complaints.** 5,219 training complaints that aren't in Kev's training data or in the test.
-- **Mixed training.** About a third of training examples are single items read alone, and Kev's other kinds of
-  questions are mixed in (also answered by the teacher), so the model keeps answering short inputs as before.
-- **No labels for the complaints, no bigger model, no hosted-model outputs.** One run is 46 minutes on one H100 (~$2).
+I used a small LoRA adapter, trained for 46 minutes on one rented H100, which cost about $2.
 
 ## Results
 
-![Accuracy at 64k: Kev-27B 85%, Jev 83% (two 32k halves), Clef 27B 80%, self-taught Kev-0.8B 78%, Kev-0.8B with labels 75%, Clef-flash 9B 59%, Kev-9B 51%, Kev-0.8B 12%.](results/figures/5_at_64k.png)
-
-*Accuracy with 246 complaints in one read (64k tokens). The pale part of each bar is the same model reading each
-complaint alone. Jev's window is 32k, so it read each input as two halves.*
-
-- **78% at 64k** against 80% alone (mean of two training runs, 78.4% and 77.8%), up from 12%.
-- **It beats the same model trained on the real labels** (75%). The two trained on different complaints, so this mixes
-  method and data.
+- 78% accuracy at 64k against 80% alone, up from 12%.
+- It beats the same model trained on the real labels (75%).
 - **It beats Kev-9B** (51%) and lands within 2 points of Clef 27B (80%). Kev-27B stays 7 points ahead, but it is also
   better on a complaint read alone (86% vs 80%).
-- **Packed answers match the alone answers 89% of the time**, up from 13%.
-- **Nothing else broke.** On Kev's own suites, paired against released Kev: decision-v7 +0.4 [−0.5, +1.4], transfer-v4
-  −1.3 [−3.4, +0.8].
+- Packed answers match the alone answers 89% of the time, up from 13%.
+- **Nothing else broke.** On Kev's own suites, paired against base Kev-0.8B: decision-v7 +0.4 [−0.5, +1.4], transfer-v4 −1.3 [−3.4, +0.8].
 
 ## Past the 64k window
 
-Same teacher answers, longer training documents, each round starting from the last:
+Existing decision models are limited or struggle beyond 64k tokens, so using the same teacher-student method with longer training documents:
 
 | Round | Starts from | Training documents | Time on one H100 |
 |---|---|---|---|
@@ -74,28 +52,14 @@ Same teacher answers, longer training documents, each round starting from the la
 
 *Diamonds mark the longest document each round trained on. Each round holds up to about twice that length.*
 
-Round 3 scores **79% at 128k** and **75% at 256k**; released Kev-0.8B is at chance at both. Scoring past 64k uses
+The final finetuned model scores 79% at 128k and 75% at 256k, where base Kev-0.8B is at chance at both. Scoring past 64k uses
 `bench/chunked_scorer.py`, which runs Kev's scorer with the questions in batches; it matches Kev's unpatched scorer
 on every question where both run. Training past 64k lifts Kev's 64k training cap for that run (`infra/runpod/train.sh`).
 
-## Limits
-
-- **The teacher sets the ceiling.** The student can't beat its own read-alone accuracy (80%). Swapping in Kev-27B as the
-  teacher (86% alone) left the student at 81% alone and 78% at 64k: self-teaching transfers finding the right item, not
-  the teacher's extra knowledge, at least at this size and budget.
-- **More items, bigger drop.** A 64k input holds about 14 [CUAD](https://www.atticusprojectai.org/cuad) contracts
-  against 246 complaints. Packing costs Kev-0.8B only 9 points there (71% → 62%), and self-teaching on complaints wins
-  back about half (67%).
-- **A weak teacher teaches nothing.** Kev-0.8B is near chance on ContractNLI NDA questions (49% on three options), so
-  adding NDAs barely moved contracts (70%). With Kev-27B as the NDA teacher (83% alone), contracts at 64k rose about
-  3 points (73%).
-- **Locate-and-read only.** Each question is about one item; the tests don't ask for reasoning across items.
-- **Seeds.** The 64k result is two training runs; rounds 2–3 and the Kev-27B-teacher run were trained once.
-
-## Use the model
+## Try the model
 
 The model is a Kev checkpoint, so Kev's own server runs it: a TypeSafe-compatible API on your machine (CUDA, or MLX on
-Apple Silicon). Tested with Kev at commit `fe64b12`:
+Apple Silicon).
 
 ```bash
 git clone https://github.com/jaredpalmer/kev.git && cd kev && git checkout fe64b12
@@ -152,7 +116,7 @@ response = client.system_one(
 print({k: response.choices[k].choice for k in tickets})   # {'T-101': 'mortgage', 'T-102': 'debt_collection', 'T-103': 'money_transfer'}
 ```
 
-**Past 64k.** Kev's server refuses inputs over 64k tokens. To read longer ones, raise that limit in your Kev checkout
+Kev's server refuses inputs over 64k tokens so to read longer ones, raise that limit in your Kev checkout
 before starting the server:
 
 ```bash
@@ -160,7 +124,7 @@ sed -i.bak 's/^SERVE_MAX_STATE = 65536$/SERVE_MAX_STATE = 262144/' kev/model.py
 ```
 
 On an Apple M5 laptop (MLX, bf16), a 122k-token input with 509 questions took 84 seconds and a 244k-token input with
-997 questions took 6 minutes. Their answers matched the GPU scores in this repo on 508/509 and 985/997 questions.
+997 questions took 6 minutes.
 
 **Tips**
 - Label each item with an ID and name that ID in its question, as above. Training used headers like `Complaint 1234:`,
@@ -170,7 +134,7 @@ On an Apple M5 laptop (MLX, bf16), a 122k-token input with 509 questions took 84
 - The training complaints all used one product question; other questions rely on Kev's general skills, which
   self-teaching kept (see Kev's suites above). Check accuracy on your own items before relying on it.
 
-## Layout
+## Codebase
 
 ```
 selfteach/          training side: one builder per training set, then targets and analysis
@@ -211,7 +175,7 @@ git clone https://github.com/jaredpalmer/kev data/kev && git -C data/kev checkou
 (cd data/kev && uv sync --frozen)   # Kev's own environment, for kev.benchmark / kev.train and the scripts that import kev
 ```
 
-Inputs expected under `data/` (not redistributed):
+Inputs expected under `data/`:
 
 | Path | What |
 |---|---|
@@ -249,9 +213,8 @@ uv run python results/figures.py                                      # the figu
 
 ## Notes
 
-- All scores use Kev's own scorer (`kev.benchmark`) and suites. Our scoring of released Kev-0.8B 1.0 reproduces Kev's published rows bit for bit.
-- Jev and Clef were queried only for evaluation. No hosted-model output is used to train anything.
-- The label-trained comparison (delta-v1) was built with earlier code that is not part of this repo; its results are in `results/`.
+- All scores use Kev's own scorer (`kev.benchmark`) and suites. Our scoring of base Kev-0.8B 1.0 reproduces Kev's published rows bit for bit.
+- Jev and Clef were queried only for evaluation. No hosted model output is used to train anything.
 
 ## Licence
 
