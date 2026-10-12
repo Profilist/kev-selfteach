@@ -137,40 +137,43 @@ On an Apple M5 laptop (MLX, bf16), a 122k-token input with 509 questions took 84
 ## Codebase
 
 ```
-reproduce.sh        one entry point: data, gpu, hosted, reports (see Reproduce)
-selfteach/          training side: one builder per training set, then targets and analysis
-  common.py           shared: items, packing into documents, Kev's records, tokenizer and context
-  build_kev_items.py  kev-items: the first attempt (Kev's own training complaints), and the decision-records teacher suite
-  build_fresh.py      fresh-32k: fresh CFPB complaints, documents to 32k (the headline model; --seed 1 for fresh-32k-seed1)
-  build_ndas.py       fresh-32k-ndas: the same plus fresh ContractNLI NDAs
-  build_longer.py     fresh-64k, fresh-128k: the same items repacked into longer documents
-  filter.py           drop packed records that don't fit the training context (Kev's environment)
-  targets.py          teacher answers -> soft targets (Kev's environment, on the GPU box)
-  report.py           self-taught analyses (agreement with the alone answer, edge errors) -> results/selfteach.json
-baseline/           the label-trained comparison (labels-32k): the same model trained on the real labels
-  build.py            training data: labelled complaint documents, buried records, synthetic evidence tasks, replay
-  synthetic.py        synthetic long-document evidence tasks with programmatic labels
-  fillers.py          their SQuAD and AG News filler
-  sports_filter.py    the "no sports" drop list for one filler pool -> nonsports_drop.json (Kev's environment)
-bench/              test side: one folder per test
-  complaints/         the packed-complaints test
-    build.py            suite, alone to 64k
-    build_long.py       suite, 128k and 256k
-    split.py            scoring copies with each document's questions in groups (fits Kev's scorer in GPU memory)
-    report.py           -> results/complaints.json
-    report_long.py      -> results/complaints_long.json
-    jev.py, clef.py     hosted references (evaluation only)
-  contracts/          the packed-contracts test (CUAD, Kev's longdoc layout)
-    build.py, report.py (-> results/contracts.json), hosted.py (Jev and Clef, evaluation only)
-  regression.py       Kev's own short-question suites, paired -> results/regression/<run>.json
-  chunked_scorer.py   Kev's scorer with question branches chunked, for 128k+ (evaluation only)
-  chunked_check.py    checks the chunked scorer against Kev's unpatched one
-  hosted.py           shared Jev / Clef API client
+reproduce.sh          runs everything (see Reproduce)
+selfteach/            the self-taught method
+  common.py             shared helpers
+  build_kev_items.py    data for the first attempt (kev-items)
+  build_fresh.py        data for the main model (fresh-32k)
+  build_ndas.py         data with NDAs added (fresh-32k-ndas)
+  build_longer.py       data with longer documents (fresh-64k, fresh-128k)
+  filter.py             drops examples that are too long to train on
+  targets.py            turns the teacher's answers into training targets
+  report.py             compares packed answers with alone answers
+baseline/             the comparison trained on real labels (labels-32k)
+  build.py              its training data
+  synthetic.py          synthetic long-document tasks
+  fillers.py            filler text for those tasks
+  sports_filter.py      removes sports text from one filler pool
+bench/                the tests
+  complaints/           the packed-complaints test
+    build.py              builds it, up to 64k
+    build_long.py         builds the 128k and 256k versions
+    split.py              splits questions into groups that fit in GPU memory
+    report.py             scores up to 64k
+    report_long.py        scores at 128k and 256k
+    jev.py                runs Jev on it
+    clef.py               runs Clef on it
+  contracts/            the packed-contracts test
+    build.py              builds it
+    report.py             scores it
+    hosted.py             runs Jev and Clef on it
+  regression.py         checks Kev's own short-question tests
+  chunked_scorer.py     scores inputs past 64k
+  chunked_check.py      checks that scorer against Kev's own
+  hosted.py             Jev and Clef API client
 infra/
-  runpod/             GPU steps on one H100: teacher.sh, train.sh, score.sh (+ setup, self-stop); README has every run
-  modal/              the Modal app used for the label-trained baseline and the first Kev reads
-results/            tracked summaries (JSON); figures.py draws results/figures/ from them
-data/               local only: Kev checkout, raw data, suites, model rows, checkpoints
+  runpod/               scripts for a rented GPU
+  modal/                the Modal app used early on
+results/              result summaries; figures.py draws the figures
+data/                 local only: inputs, test files, scores, checkpoints
 ```
 
 ## Setup
